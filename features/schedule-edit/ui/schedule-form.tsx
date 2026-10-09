@@ -34,6 +34,7 @@ export function ScheduleFormEdit({
   });
 
   const rowShifts = form.watch("rowShifts");
+
   const shiftCounts = getShiftCounts(rowShifts ?? []);
 
   function addRow() {

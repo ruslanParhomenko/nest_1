@@ -17,6 +17,7 @@ import { calculateSalaryByHours, calculateShiftTotals } from "../lib/utils";
 import { color, SHIFT_COLOR_MAP } from "../model/constants";
 import MoveButton from "@/components/action-buttons/move-button";
 import SelectField from "@/components/form-select/select-field";
+import { useState } from "react";
 
 export default function ScheduleBodyEdit({
   fields,
@@ -35,6 +36,8 @@ export default function ScheduleBodyEdit({
   selectedDay: number;
   setSelectedDay: (day: number) => void;
 }) {
+  const [movedId, setMovedId] = useState<string | null>(null);
+
   const form = useFormContext<ScheduleType>();
   const { control, getValues } = form;
 
@@ -149,9 +152,14 @@ export default function ScheduleBodyEdit({
                 </TableCell>
               );
             })}
-
-            <TableCell>
-              <MoveButton rowIndex={rowIndex} fields={fields} move={move} />
+            <TableCell className="h-px p-0!">
+              <MoveButton
+                rowIndex={rowIndex}
+                fields={fields}
+                move={move}
+                active={movedId === row.id}
+                onMoved={() => setMovedId(row.id)}
+              />
             </TableCell>
           </TableRow>
         );
