@@ -15,21 +15,15 @@ export default function ScheduleTableFooter({
   shiftCounts: ShiftCounts | null;
   role: string;
 }) {
-  if (!shiftCounts) return null;
 
   return (
     <TableFooter data-html2canvas-ignore="true">
-      {shiftCounts &&
-        SHIFT_OPTIONS.filter((item) =>
+      {SHIFT_OPTIONS.filter((item) =>
           SHIFTS[role as keyof typeof SHIFTS]?.includes(item),
         ).map((item, i) => (
           <TableRow key={i} className="border-0">
-            <TableCell colSpan={5} />
-            <TableCell colSpan={1} />
-            <TableCell className="text-muted-foreground px-4 py-1 text-start text-xs">
-              <span className="tracking-wider">
+            <TableCell colSpan={7} className="text-muted-foreground px-4 py-1 text-end text-xs">
                 {TIME_BY_SHIFT[item as keyof typeof TIME_BY_SHIFT]}
-              </span>
             </TableCell>
             {shiftCounts?.[item]?.map((day, index) => (
               <TableCell

@@ -10,6 +10,7 @@ import { Employee } from "@/bd-test/employee";
 import { useMonthDays } from "@/hooks/use-month-days";
 import { createEmptyRowShifts, getShiftCounts } from "../lib/utils";
 import { useScheduleForm } from "../hooks/use-schedule-form";
+import { EditMenu } from "@/features/edit-menu/ui/edit-menu";
 
 export function ScheduleFormEdit({
   employees,
@@ -65,8 +66,8 @@ export function ScheduleFormEdit({
   }, [schedule]);
   return (
     <FormWrapper form={form} onSubmit={onSubmit}>
+      <EditMenu addNewRow={addRow} />
       <ScheduleTable
-        addRow={addRow}
         selectedDay={selectedDay}
         setSelectedDay={setSelectedDay}
         fields={fields}

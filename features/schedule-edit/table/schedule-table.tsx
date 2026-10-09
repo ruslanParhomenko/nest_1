@@ -2,13 +2,13 @@ import { FieldArrayWithId, UseFieldArrayReturn } from "react-hook-form";
 import { ScheduleType } from "../model/schema";
 import { Table } from "@/components/ui/table";
 import { Employee } from "@/bd-test/employee";
-import ScheduleHeaderEdit from "./schedule-header-edit";
+import ScheduleHeaderEdit from "../../schedule/ui/schedule-header";
 import ScheduleBodyEdit from "./schedule-body-edit";
 import ScheduleTableFooter from "@/features/schedule/ui/schedule-footer";
 import { ShiftCounts } from "../model/type";
+import ScheduleTableHeader from "../../schedule/ui/schedule-header";
 
 interface ScheduleTableProps {
-  addRow: () => void;
   tab: string;
   shiftCounts: ShiftCounts | null;
   fields: FieldArrayWithId<ScheduleType, "rowShifts", "id">[];
@@ -20,7 +20,6 @@ interface ScheduleTableProps {
   setSelectedDay: (day: number) => void;
 }
 export default function ScheduleTable({
-  addRow,
   selectedDay,
   setSelectedDay,
   fields,
@@ -33,8 +32,7 @@ export default function ScheduleTable({
 }: ScheduleTableProps) {
   return (
     <Table className="mt-4 table-fixed">
-      <ScheduleHeaderEdit
-        addNewRow={addRow}
+      <ScheduleTableHeader
         selectedDay={selectedDay}
         setSelectedDay={setSelectedDay}
       />
