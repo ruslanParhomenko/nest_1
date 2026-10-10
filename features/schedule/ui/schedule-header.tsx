@@ -15,7 +15,7 @@ export default function ScheduleTableHeader({
   return (
     <TableHeader>
       <TableRow className="border-0!">
-        <TableCell colSpan={6} className={"w-34"} />
+        <TableCell colSpan={4} className={"w-60"} />
         <TableCell className="w-30 font-bold tracking-wider text-blue-800">
           {MONTHS[month - 1].toUpperCase() || ""}
         </TableCell>

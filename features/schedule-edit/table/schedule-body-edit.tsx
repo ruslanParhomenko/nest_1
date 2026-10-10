@@ -99,21 +99,20 @@ export default function ScheduleBodyEdit({
               {rowIndex + 1}
             </TableCell>
 
-            <TableCell className="text-blue-500 hover-cell px-0">
-              {totalDay || 0}
-            </TableCell>
-            <TableCell className="text-blue-500 hover-cell px-0">
-              {totalNight || 0}
+            <TableCell className="text-blue-500 hover-cell">
+              <div className="flex flex-col items-center leading-tight">
+                <span className="text-[10px]">{totalDay || 0}</span>
+                <span className="mt-px w-full border-t pt-px text-center text-muted-foreground text-[10px]">
+                  {totalNight || 0}
+                </span>
+              </div>
             </TableCell>
 
-            <TableCell className="px-0">{total || 0}</TableCell>
+            <TableCell className="text-green-800">{total || 0}</TableCell>
 
-            <TableCell className="px-2">
-              {totalPay && totalPay.toFixed()}
-            </TableCell>
-            <TableCell className="text-muted-foreground px-2! text-right">
+            <TableCell className="text-muted-foreground px-2! text-center">
               {row.role.charAt(0)}
-              {Number(rate) / 1000}
+              {Number(rate) / 1000} : {totalPay && totalPay.toFixed()}
             </TableCell>
             <TableCell className="bg-background sticky left-0 pl-2! md:bg-transparent">
               <SelectField
