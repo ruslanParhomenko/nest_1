@@ -6,6 +6,7 @@ import {
 import { ScheduleType } from "../model/schema";
 import { ShiftCounts } from "../model/type";
 import { Employee } from "@/bd-test/employee";
+import { KeyboardEvent } from "react";
 
 export function getShiftCounts(
   rowShifts: ScheduleType["rowShifts"],
@@ -78,4 +79,87 @@ export function createEmptyRowShifts(employees: Employee[], daysCount: number) {
     employeeId: emp.id,
     shifts: Array(daysCount).fill(""),
   }));
+}
+
+export function handleMultiTableNavigation(e: KeyboardEvent<HTMLInputElement>) {
+  const key = e.key;
+  const input = e.currentTarget;
+
+  const td = input.closest("td");
+  const tr = input.closest("tr");
+  const tbody = input.closest("tbody");
+
+  if (!td || !tr || !tbody) return;
+
+  if (key === "Tab") {
+    e.preventDefault();
+
+    const nextTbody = e.shiftKey
+      ? (tbody.previousElementSibling as HTMLElement | null)
+      : (tbody.nextElementSibling as HTMLElement | null);
+
+    const target =
+      nextTbody?.querySelector<HTMLInputElement>("input:not(:disabled)") ??
+      null;
+
+    target?.focus();
+    return;
+  }
+
+  if (
+    !["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Enter"].includes(key)
+  ) {
+    return;
+  }
+
+  e.preventDefault();
+
+  const colIndex = td.cellIndex;
+
+  let target: HTMLInputElement | null = null;
+
+  const inputsInCell = td.querySelectorAll<HTMLInputElement>("input");
+  const currentIndex = Array.from(inputsInCell).indexOf(input);
+
+  switch (key) {
+    case "ArrowRight":
+    case "Enter":
+      target =
+        td.nextElementSibling?.querySelector<HTMLInputElement>(
+          "input:not(:disabled)",
+        ) ?? null;
+      break;
+
+    case "ArrowLeft":
+      target =
+        td.previousElementSibling?.querySelector<HTMLInputElement>(
+          "input:not(:disabled)",
+        ) ?? null;
+      break;
+
+    case "ArrowDown":
+      if (inputsInCell.length > 1 && currentIndex < inputsInCell.length - 1) {
+        target = inputsInCell[currentIndex + 1];
+        break;
+      }
+      target =
+        tr.nextElementSibling?.querySelector<HTMLInputElement>(
+          `td:nth-child(${colIndex + 1}) input:not(:disabled)`,
+        ) ?? null;
+      break;
+
+    case "ArrowUp":
+      if (inputsInCell.length > 1 && currentIndex > 0) {
+        target = inputsInCell[currentIndex - 1];
+        break;
+      }
+
+      target =
+        tr.previousElementSibling?.querySelector<HTMLInputElement>(
+          `td:nth-child(${colIndex + 1}) input:not(:disabled)`,
+        ) ?? null;
+      break;
+  }
+
+  target?.focus();
 }

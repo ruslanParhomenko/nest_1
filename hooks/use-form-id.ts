@@ -1,6 +1,5 @@
 "use client";
-
-import { getFormIdFromPathname } from "@/lib/utils";
+import { getFormIdFromPathname } from "@/utils/get-form-id";
 import { usePathname } from "next/navigation";
 
 export function useFormId(): string {

@@ -2,7 +2,7 @@
 
 import { MonthDaysCells } from "@/components/table/month-days-cells";
 import { TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { cn, handleMultiTableNavigation } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { useMonthDays } from "@/hooks/use-month-days";
 import {
   FieldArrayWithId,
@@ -13,7 +13,11 @@ import {
 
 import { ScheduleType } from "../model/schema";
 import { Employee } from "@/bd-test/employee";
-import { calculateSalaryByHours, calculateShiftTotals } from "../lib/utils";
+import {
+  calculateSalaryByHours,
+  calculateShiftTotals,
+  handleMultiTableNavigation,
+} from "../lib/utils";
 import { color, SHIFT_COLOR_MAP } from "../model/constants";
 import MoveButton from "@/components/action-buttons/move-button";
 import SelectField from "@/components/form-select/select-field";
@@ -118,7 +122,7 @@ export default function ScheduleBodyEdit({
                 className={cn(
                   "hover-cell truncate p-0 text-xs",
                   isSelected && "text-rd font-bold",
-                  employeesLength < 18 ? "h-9" : "h-7!",
+                  employeesLength < 18 ? "h-8" : "h-7!",
                 )}
                 onChange={(name) => handleEmployeeChange(name, rowIndex)}
               />
@@ -145,7 +149,7 @@ export default function ScheduleBodyEdit({
                       "hover-cell h-full w-full text-center text-sm",
                       shiftValue === "" ? "bg-border/20" : "",
                       color[shiftValue as keyof typeof color],
-                      employeesLength < 18 ? "h-9" : "h-8!",
+                      employeesLength < 18 ? "h-8" : "h-7!",
                     )}
                     onFocus={() => setSelectedDay(dayIndex + 1)}
                   />
@@ -170,7 +174,7 @@ export default function ScheduleBodyEdit({
           selectedDay={selectedDay}
           orientation="bottom"
           colSpan={7}
-          className="h-10"
+          className="h-9"
         />
       </TableRow>
     </TableBody>

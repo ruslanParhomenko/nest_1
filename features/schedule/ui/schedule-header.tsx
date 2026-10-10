@@ -2,7 +2,7 @@
 import { MonthDaysCells } from "@/components/table/month-days-cells";
 import { TableCell, TableHeader, TableRow } from "@/components/ui/table";
 import { useMonthDays } from "@/hooks/use-month-days";
-import { MONTHS } from "@/lib/utils";
+import { MONTHS } from "@/utils/get-month-days";
 
 export default function ScheduleTableHeader({
   selectedDay,
@@ -15,9 +15,8 @@ export default function ScheduleTableHeader({
   return (
     <TableHeader>
       <TableRow className="border-0!">
-      
-        <TableCell colSpan={6} className={"w-34"}/>
-        <TableCell className="w-24 pl-2 font-bold tracking-wider text-blue-800">
+        <TableCell colSpan={6} className={"w-34"} />
+        <TableCell className="w-30 font-bold tracking-wider text-blue-800">
           {MONTHS[month - 1].toUpperCase() || ""}
         </TableCell>
 

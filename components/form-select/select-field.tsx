@@ -7,13 +7,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Field, FieldError, FieldLabel } from "@/components/ui/field";
+import { Field, FieldError } from "@/components/ui/field";
 import { cn } from "@/lib/utils";
 import { Controller, useFormContext } from "react-hook-form";
 
 type Props = {
   fieldName: string;
-  fieldLabel?: string;
   placeHolder?: string;
   data: string[];
   disabled?: boolean;
@@ -23,7 +22,6 @@ type Props = {
 
 export default function SelectField({
   fieldName,
-  fieldLabel,
   placeHolder,
   data,
   disabled,
@@ -32,22 +30,18 @@ export default function SelectField({
 }: Props) {
   const { control } = useFormContext();
 
+  const itemClassName =
+    "data-selected:text-green-600! data-selected:focus:text-green-600 data-selected:data-highlighted:text-green-600 data-selected:**:text-green-600";
+
   return (
     <Controller
       control={control}
       name={fieldName}
       render={({ field, fieldState }) => (
-        <Field
-          data-invalid={fieldState.invalid}
-          className={cn(fieldLabel && "justify-items-start gap-2 pb-2")}
-        >
-          {fieldLabel && (
-            <FieldLabel htmlFor={fieldName}>{fieldLabel}</FieldLabel>
-          )}
-
+        <Field data-invalid={fieldState.invalid}>
           <Select
             name={field.name}
-            value={field.value ?? ""}
+            value={field.value ?? null}
             onValueChange={(value) => {
               field.onChange(value);
               onChange?.(value);
@@ -59,19 +53,24 @@ export default function SelectField({
               aria-invalid={fieldState.invalid}
               onBlur={field.onBlur}
               className={cn(
-                "flex w-full justify-start truncate bg-transparent! [&>svg]:hidden",
                 className,
-                field.value && "border-0 font-bold shadow-none",
+                field.value &&
+                  "border-transparent shadow-none text-green-600 [&>svg]:hidden pl-4",
               )}
             >
-              <span className="block truncate">
-                <SelectValue placeholder={placeHolder} />
-              </span>
+              <SelectValue placeholder={placeHolder} />
             </SelectTrigger>
 
-            <SelectContent>
+            <SelectContent className="w-full p-2 [&>svg]:hidden">
               {data.map((item, index) => (
-                <SelectItem key={`${item}-${index}`} value={item}>
+                <SelectItem
+                  key={`${item}-${index}`}
+                  value={item}
+                  className={cn(
+                    field.value === item &&
+                      "text-green-600! focus:text-green-600! data-highlighted:text-green-600! **:text-green-600!",
+                  )}
+                >
                   {item}
                 </SelectItem>
               ))}

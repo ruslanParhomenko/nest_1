@@ -1,4 +1,4 @@
-import { getMonthDays } from "@/lib/utils";
+import { getMonthDays } from "@/utils/get-month-days";
 import { useSearchParams } from "next/navigation";
 
 function parseParam(
