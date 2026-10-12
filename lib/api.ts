@@ -1,7 +1,7 @@
 import "server-only";
 
-const API_URL = "http://localhost:3000";
-
+// const API_URL = "http://localhost:3000";
+const API_URL = process.env.BACKEND_URL;
 if (!API_URL) {
   throw new Error("BACKEND_URL is not configured");
 }
