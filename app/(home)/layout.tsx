@@ -1,3 +1,4 @@
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { FooterBar } from "@/features/layout/footer";
 import EditProvider from "@/provider/edit-provider";
 
@@ -9,8 +10,8 @@ export default async function HomeLayout({
   return (
     <EditProvider>
       <header></header>
-      <main className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black p-2">
-        {children}
+      <main className="flex flex-col flex-1 items-center justify-center p-2">
+        <TooltipProvider>{children}</TooltipProvider>
       </main>
       <footer>
         <FooterBar />

@@ -34,10 +34,6 @@ export function ScheduleFormEdit({
     name: "rowShifts",
   });
 
-  const rowShifts = form.watch("rowShifts");
-
-  const shiftCounts = getShiftCounts(rowShifts ?? []);
-
   function addRow() {
     replace([
       ...fields,
@@ -75,7 +71,6 @@ export function ScheduleFormEdit({
         remove={remove}
         move={move}
         update={update}
-        shiftCounts={shiftCounts}
         tab={tab}
       />
     </FormWrapper>

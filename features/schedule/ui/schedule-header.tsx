@@ -15,7 +15,10 @@ export default function ScheduleTableHeader({
   return (
     <TableHeader>
       <TableRow className="border-0!">
-        <TableCell colSpan={4} className={"w-60"} />
+        <TableCell className="w-7" />
+        <TableCell className="w-10" />
+        <TableCell className="w-10" />
+        <TableCell className="w-14" />
         <TableCell className="w-30 font-bold tracking-wider text-blue-800">
           {MONTHS[month - 1].toUpperCase() || ""}
         </TableCell>
@@ -25,10 +28,10 @@ export default function ScheduleTableHeader({
           selectedDay={selectedDay}
           setSelectedDay={setSelectedDay}
           orientation="top"
-          className="w-8.5 print:w-7.5"
+          className="w-8 print:w-7.5"
         />
 
-        <TableCell className="w-4 p-0" />
+        <TableCell className="w-6 p-0" />
       </TableRow>
     </TableHeader>
   );
