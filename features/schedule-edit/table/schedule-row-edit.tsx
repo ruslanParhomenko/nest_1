@@ -23,6 +23,7 @@ import {
 } from "../lib/utils";
 import { color } from "../model/constants";
 import { memo, useState } from "react";
+import AppTooltip from "@/components/ui/app-tooltip";
 
 type RowProps = {
   row: FieldArrayWithId<ScheduleType, "rowShifts", "id">;
@@ -73,19 +74,17 @@ function ScheduleRowEdit({
       key={row.id}
       className="group hover:text-red-600! [&>td]:py-0.5 [&>td]:text-xs border border-blue-600/30 border-x-0"
     >
-      <Tooltip>
-        <TooltipTrigger
-          render={
-            <TableCell
-              className="text-red-600 font-bold cursor-pointer border-r text-center"
-              onClick={() => remove(rowIndex)}
-            />
-          }
-        >
-          {rowIndex + 1}
-        </TooltipTrigger>
-        <TooltipContent>Удалить строку</TooltipContent>
-      </Tooltip>
+      <AppTooltip
+        content="Удалить строку"
+        render={
+          <TableCell
+            className="text-red-600 font-bold cursor-pointer border-r text-center"
+            onClick={() => remove(rowIndex)}
+          />
+        }
+      >
+        {rowIndex + 1}
+      </AppTooltip>
 
       <TableCell className="text-blue-500 hover-cell">
         <div className="flex flex-col items-center leading-tight">

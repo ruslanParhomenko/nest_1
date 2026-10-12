@@ -11,7 +11,7 @@ export default async function HomeLayout({
     <EditProvider>
       <header></header>
       <main className="flex flex-col flex-1 items-center justify-center p-2">
-        <TooltipProvider>{children}</TooltipProvider>
+        {children}
       </main>
       <footer>
         <FooterBar />
