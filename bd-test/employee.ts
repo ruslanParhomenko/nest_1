@@ -13,6 +13,12 @@ export enum Role {
   MGR = "MGR",
 }
 
+export type Vacation = {
+  startDate: string;
+  endDate: string;
+  countDays: number;
+};
+
 export type Employee = {
   id: string;
   mail: string;
@@ -24,7 +30,7 @@ export type Employee = {
   employmentDate: string;
   dismissalDate: string | null;
   rate: number;
-  vacation: [];
+  vacation: Vacation[];
   createdAt: string;
   updatedAt: string;
 };

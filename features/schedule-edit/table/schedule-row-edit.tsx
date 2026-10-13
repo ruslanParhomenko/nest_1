@@ -35,7 +35,7 @@ type RowProps = {
   selectedEmployees: Employee[];
 
   onCellFocus: (rowIndex: number, dayIndex: number) => void;
-  onEmployeeChange: (name: string, rowIndex: number) => void;
+  onEmployeeChange: (name: string | null, rowIndex: number) => void;
 };
 
 function ScheduleRowEdit({
@@ -72,7 +72,7 @@ function ScheduleRowEdit({
   return (
     <TableRow
       key={row.id}
-      className="group hover:text-red-600! [&>td]:py-0.5 [&>td]:text-xs border border-blue-600/30 border-x-0"
+      className="group hover:text-red-600! [&>td]:py-0 [&>td]:text-xs border border-blue-600/30 border-x-0"
     >
       <AppTooltip
         content="Удалить строку"
@@ -87,12 +87,20 @@ function ScheduleRowEdit({
       </AppTooltip>
 
       <TableCell className="text-blue-500 hover-cell">
-        <div className="flex flex-col items-center leading-tight">
-          <span className="text-[11px]">{totalDay || 0}</span>
-          <span className="mt-px w-full border-t pt-px text-center text-muted-foreground text-[11px]">
-            {totalNight || 0}
-          </span>
-        </div>
+        {fieldsLength > 22 ? (
+          <div className="flex items-center justify-center gap-1 text-[11px] leading-none">
+            <span>{totalDay || 0}</span>
+            <span className="text-muted-foreground">/</span>
+            <span className="text-muted-foreground">{totalNight || 0}</span>
+          </div>
+        ) : (
+          <div className="flex flex-col items-center leading-tight">
+            <span className="text-[11px]">{totalDay || 0}</span>
+            <span className="w-full border-t text-center text-muted-foreground text-[11px]">
+              {totalNight || 0}
+            </span>
+          </div>
+        )}
       </TableCell>
 
       <TableCell
@@ -120,10 +128,11 @@ function ScheduleRowEdit({
           fieldName={`rowShifts.${rowIndex}.employee`}
           data={selectedEmployees.map((e) => e.fullName)}
           className={cn(
-            "hover-cell truncate p-0 text-xs",
+            "hover-cell truncate p-0 text-xs h-5!",
             selectedRow === rowIndex && "text-red-600! font-bold",
           )}
           onChange={(name) => onEmployeeChange(name, rowIndex)}
+          withOutBorder={true}
         />
       </TableCell>
 
@@ -141,7 +150,8 @@ function ScheduleRowEdit({
               data-col={dayIndex}
               onKeyDown={handleMultiTableNavigation}
               className={cn(
-                "hover-cell  w-full text-center text-sm h-8",
+                "hover-cell  w-full text-center text-sm",
+                fieldsLength > 20 ? "h-5" : "h-8",
                 shiftValue === "" ? "bg-border/20" : "",
                 color[shiftValue as keyof typeof color],
               )}

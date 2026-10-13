@@ -1,5 +1,6 @@
 "use client";
 
+import AddEmployeeButton from "@/components/action-buttons/add-employee-button";
 import EditButton from "@/components/action-buttons/edit-button";
 import SaveButton from "@/components/action-buttons/save-button";
 import { ACTION_ITEM_BY_ROUTE } from "@/constants/action-item";
@@ -20,11 +21,14 @@ export function FooterBar() {
   const has = (key: string) => actions.includes(key);
 
   return (
-    <div className="bg-background flex items-center justify-start gap-6 py-4 px-4">
+    <div className="bg-background flex items-center justify-start gap-6 pb-3 pt-1 px-4">
       {has("edit") && (
         <EditButton isEdit={isEditing} setIsEdit={setIsEditing} />
       )}
       {has("save") && isEditing && <SaveButton formId={formId} />}
+      {has("add-employee") && (
+        <AddEmployeeButton isEdit={isEditing} setIsEdit={setIsEditing} />
+      )}
     </div>
   );
 }

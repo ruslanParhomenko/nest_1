@@ -44,9 +44,9 @@ export default function ScheduleBodyEdit({
   );
 
   const handleEmployeeChange = useCallback(
-    (name: string, rowIndex: number) => {
+    (name: string | null, rowIndex: number) => {
       const employee = selectedEmployees.find(
-        (e) => e.fullName.trim() === name.trim(),
+        (e) => e.fullName.trim() === name?.trim(),
       );
       if (!employee) return;
 
@@ -79,15 +79,17 @@ export default function ScheduleBodyEdit({
           />
         );
       })}
-      <TableRow>
-        <MonthDaysCells
-          monthDays={monthDays}
-          selectedDay={selectedDay}
-          orientation="bottom"
-          colSpan={5}
-          className="h-9"
-        />
-      </TableRow>
+      {fields.length < 20 && (
+        <TableRow>
+          <MonthDaysCells
+            monthDays={monthDays}
+            selectedDay={selectedDay}
+            orientation="bottom"
+            colSpan={5}
+            className="h-8"
+          />
+        </TableRow>
+      )}
     </TableBody>
   );
 }

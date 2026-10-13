@@ -45,7 +45,13 @@ export default function ScheduleFooterEdit({ role }: { role: string }) {
 
         return (
           <TableRow key={item} className="border-0">
-            <TableCell colSpan={5} className="px-6 py-0.5 text-end text-xs">
+            <TableCell
+              colSpan={5}
+              className={cn(
+                "px-6 text-end text-xs",
+                rowShifts.length < 20 ? "py-0.5" : "py-0",
+              )}
+            >
               <span className="inline-flex items-center justify-center gap-2 text-muted-foreground">
                 <Icon className="size-3 shrink-0" aria-hidden="true" />
 

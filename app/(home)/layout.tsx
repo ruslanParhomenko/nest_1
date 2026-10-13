@@ -1,6 +1,8 @@
+import NavLink from "@/components/nav-layout/header-layout/nav-link";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { FooterBar } from "@/features/layout/footer";
 import EditProvider from "@/provider/edit-provider";
+import { Suspense } from "react";
 
 export default async function HomeLayout({
   children,
@@ -9,8 +11,12 @@ export default async function HomeLayout({
 }) {
   return (
     <EditProvider>
-      <header></header>
-      <main className="flex flex-col flex-1 items-center justify-center p-2">
+      <header>
+        <Suspense fallback={<div>Loading...</div>}>
+          <NavLink />
+        </Suspense>
+      </header>
+      <main className="flex flex-1 flex-col px-2 overflow-y-auto">
         {children}
       </main>
       <footer>

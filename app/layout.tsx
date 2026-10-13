@@ -35,8 +35,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         geist.variable,
       )}
     >
-      <body className="min-h-full flex flex-col">
-        {" "}
+      <body className="flex h-dvh flex-col overflow-hidden">
         <Toaster />
         <TooltipProvider>{children}</TooltipProvider>
       </body>

@@ -1,8 +1,8 @@
 import { ChevronDown, ChevronUp } from "lucide-react";
-import { FieldValues, UseFieldArrayMove } from "react-hook-form";
+import { UseFieldArrayMove } from "react-hook-form";
 import { cn } from "@/lib/utils";
 
-export default function MoveButton<T extends FieldValues>({
+export default function MoveButton({
   rowIndex,
   move,
   active = false,
@@ -33,7 +33,7 @@ export default function MoveButton<T extends FieldValues>({
           }}
           className={cn(base, opacity, "bg-blue-800")}
         >
-          <ChevronUp className="size-3.5 text-white" />
+          <ChevronUp className="size-3 text-white" />
         </button>
       )}
       {!isBottom && (
@@ -45,7 +45,7 @@ export default function MoveButton<T extends FieldValues>({
           }}
           className={cn(base, opacity, "bg-red-800")}
         >
-          <ChevronDown className="size-3.5 text-white" />
+          <ChevronDown className="size-3 text-white" />
         </button>
       )}
     </div>
