@@ -1,4 +1,4 @@
-import { getSchedule } from "./actions/get-schedule";
+import { getSchedule } from "@/features/schedule/actions/get-schedule";
 
 export default async function Home() {
   const schedule = (await getSchedule()) as any;

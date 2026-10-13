@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { createContext, useContext, useState } from "react";
+import { createContext, Suspense, useContext, useState } from "react";
 
 interface EditContext {
   isEditing: boolean;
@@ -12,7 +12,7 @@ const EditContext = createContext<EditContext | null>(null);
 
 const EDIT_PATHS = new Set([]) as Set<string>;
 
-export default function EditProvider({
+ function EditProvider({
   children,
 }: {
   children: React.ReactNode;
@@ -44,6 +44,19 @@ export default function EditProvider({
     <EditContext value={{ isEditing: state.isEdit, setIsEditing: setIsEdit }}>
       {children}
     </EditContext>
+  );
+}
+
+
+export default function EditProviderWithSuspense({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <Suspense fallback={null}>
+      <EditProvider>{children}</EditProvider>
+    </Suspense>
   );
 }
 

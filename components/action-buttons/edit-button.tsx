@@ -13,10 +13,12 @@ export default function EditButton({
   setIsEdit: (isEdit: boolean) => void;
   size?: number;
 }) {
+
+ 
   return (
     <button
       type="button"
-      onClick={() => setIsEdit(!isEdit)}
+      onClick={() =>setIsEdit(!isEdit)}
       className={cn(
         className,
         "cursor-pointer hover:text-black bg-gray-300 border border-gray-300 px-2 py-1 rounded-md",

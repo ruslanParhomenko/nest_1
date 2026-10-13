@@ -16,8 +16,12 @@ import { formatShortDate } from "@/utils/get-format-date";
 import { handleCopy } from "@/utils/handler-copy-text";
 import { differenceInMonths } from "date-fns";
 import { CheckCircle, UserX } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export function EmployeesPage({ employees }: { employees: Employee[] }) {
+
+  const router = useRouter();
+  
   const tab = "WAITERS";
 
   const [currentDate, setCurrentDate] = useState<Date | null>(null);
@@ -28,21 +32,26 @@ export function EmployeesPage({ employees }: { employees: Employee[] }) {
 
   if (!tab || !currentDate) return null;
 
+
+  const handleClickName = (id: string) => {
+    router.push(`/employee/${id}`);
+  };
+
   return (
     <div className="mt-4 flex flex-col items-center justify-center gap-4">
       <Table className="md:table-fixed [&>tbody>tr]:text-xs">
         <TableHeader className="text-xs">
-          <TableRow className="text-gr">
+          <TableRow className="[&>th]:text-green-600 [&>th]:font-bold [&>th]:text-center">
             <TableHead className="w-5" />
-            <TableHead className="w-15" />
-            <TableHead className="sticky left-0 md:w-25" />
-            <TableHead className="w-15" />
-            <TableHead className="w-20" />
-            <TableHead className="w-30" />
-            <TableHead className="w-20" />
+            <TableHead className="w-15" >employment date</TableHead>
+            <TableHead className="sticky left-0 md:w-25" >name</TableHead>
+            <TableHead className="w-15" >current rate</TableHead>
+            <TableHead className="w-20" >role</TableHead>
+            <TableHead className="w-30" >mail</TableHead>
+            <TableHead className="w-20" >tel</TableHead>
             <TableHead className="w-12">total</TableHead>
             <TableHead className="w-12">used</TableHead>
-            <TableHead className="w-12">...</TableHead>
+            <TableHead className="w-12">remaining</TableHead>
             <TableHead className="w-15">status</TableHead>
           </TableRow>
         </TableHeader>
@@ -67,7 +76,7 @@ export function EmployeesPage({ employees }: { employees: Employee[] }) {
                 <TableRow
                   key={emp.id}
                   className={cn(
-                    "hover:text-bl cursor-pointer",
+                    "hover:text-bl cursor-pointer [&>td]:text-center",
                     !emp.employmentDate && "text-rd font-bold",
                     !emp.isActive ? "text-rd/30!" : "",
                   )}
@@ -84,7 +93,7 @@ export function EmployeesPage({ employees }: { employees: Employee[] }) {
 
                   <TableCell
                     className="bg-background sticky left-0 z-10 w-32 md:bg-transparent print:bg-transparent"
-                    onClick={() => handleCopy(emp.fullName)}
+                    onClick={() => handleClickName(emp.id)}
                   >
                     {emp.fullName}
                   </TableCell>
@@ -110,7 +119,7 @@ export function EmployeesPage({ employees }: { employees: Employee[] }) {
                   <TableCell>{usedVacationDays}</TableCell>
                   <TableCell>{vacationDays - usedVacationDays}</TableCell>
 
-                  <TableCell>
+                  <TableCell className="flex items-center justify-center">
                     {!emp.isActive ? (
                       <UserX size={14} className="text-rd" />
                     ) : (

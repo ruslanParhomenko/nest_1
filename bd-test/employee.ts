@@ -16,7 +16,7 @@ export enum Role {
 export type Vacation = {
   startDate: string;
   endDate: string;
-  countDays: number;
+  countDays: string;
 };
 
 export type Employee = {

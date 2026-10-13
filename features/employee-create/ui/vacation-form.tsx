@@ -1,7 +1,6 @@
 "use client";
 import DateField from "@/components/date-input/date-input";
 import TextInput from "@/components/form-input/text-input";
-import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { differenceInCalendarDays, isValid, parseISO } from "date-fns";
 import { Plus, Trash } from "lucide-react";
@@ -10,14 +9,12 @@ import { defaultVacationForm } from "../model/schema";
 
 const nameTag = "vacation";
 
-export default function VacationForm() {
+export default function VacationForm({disabled}: {disabled?: boolean}) {
   const form = useFormContext();
   const { fields, append, remove, replace } = useFieldArray({
     control: form.control,
     name: nameTag,
   });
-
-  console.log(fields);
 
   const updateCountDays = (
     index: number,
@@ -55,6 +52,7 @@ export default function VacationForm() {
                 )
               }
               className="bg-accent"
+              disabled={disabled}
             />
             <DateField
               fieldName={`${nameTag}.${index}.endDate`}
@@ -68,6 +66,7 @@ export default function VacationForm() {
                 )
               }
               className="bg-accent"
+              disabled={disabled}
             />
             <TextInput
               fieldName={`${nameTag}.${index}.countDays`}
@@ -84,6 +83,7 @@ export default function VacationForm() {
                     ? replace(defaultVacationForm)
                     : remove(index)
                 }
+                disabled={disabled}
               >
                 <Trash className="size-4 text-red-600" strokeWidth={2} />
               </button>
@@ -92,6 +92,7 @@ export default function VacationForm() {
                   type="button"
                   className="h-9 md:w-10 flex-none cursor-pointer"
                   onClick={() => append(defaultVacationForm)}
+                  disabled={disabled}
                 >
                   <Plus className="size-4 text-blue-600" strokeWidth={2} />
                 </button>

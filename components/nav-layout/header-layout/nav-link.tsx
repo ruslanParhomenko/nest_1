@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  EMPLOYEE_MAIN_ROUTE,
+  EMPLOYEES_MAIN_ROUTE,
   SCHEDULE_MAIN_ROUTE,
 } from "@/constants/main-route";
 import { cn } from "@/lib/utils";
@@ -9,7 +9,7 @@ import { MONTHS } from "@/utils/get-month-days";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 
-const NAV_PATCH_ITEMS = [SCHEDULE_MAIN_ROUTE, EMPLOYEE_MAIN_ROUTE] as const;
+const NAV_PATCH_ITEMS = [SCHEDULE_MAIN_ROUTE, EMPLOYEES_MAIN_ROUTE] as const;
 
 export default function NavLink() {
   const patchName = usePathname().split("/")[1];
@@ -24,7 +24,7 @@ export default function NavLink() {
 
   const URL_BY_NAV = {
     schedule: `/${SCHEDULE_MAIN_ROUTE}?tab=month&month=${month}&year=${year}`,
-    employee: `/${EMPLOYEE_MAIN_ROUTE}?tab=day&day=${day}&month=${month}&year=${year}`,
+    employees: `/${EMPLOYEES_MAIN_ROUTE}?tab=day&day=${day}&month=${month}&year=${year}`,
   };
 
   if (!patchName || tab === "form") return null;
