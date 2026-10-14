@@ -1,3 +1,4 @@
+"use server";
 import { EMPLOYEE_ACTION_TAG } from "@/constants/action-tag";
 import { fetcher } from "@/lib/api";
 import { cacheLife, cacheTag } from "next/cache";
