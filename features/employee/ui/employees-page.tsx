@@ -14,14 +14,20 @@ import {
 import { cn } from "@/lib/utils";
 import { formatShortDate } from "@/utils/get-format-date";
 import { handleCopy } from "@/utils/handler-copy-text";
-import { differenceInMonths } from "date-fns";
+import { differenceInCalendarDays, differenceInMonths } from "date-fns";
 import { CheckCircle, UserX } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { GetEmployeesData } from "@/features/employee-create/model/schema";
 
-export function EmployeesPage({ employees }: { employees: Employee[] }) {
-
+export function EmployeesPage({
+  employees,
+}: {
+  employees: GetEmployeesData[];
+}) {
   const router = useRouter();
-  
+
+  console.log(employees);
+
   const tab = "WAITERS";
 
   const [currentDate, setCurrentDate] = useState<Date | null>(null);
@@ -32,9 +38,8 @@ export function EmployeesPage({ employees }: { employees: Employee[] }) {
 
   if (!tab || !currentDate) return null;
 
-
   const handleClickName = (id: string) => {
-    router.push(`/employee/${id}`);
+    router.push(`/employee/edit/${id}`);
   };
 
   return (
@@ -43,12 +48,12 @@ export function EmployeesPage({ employees }: { employees: Employee[] }) {
         <TableHeader className="text-xs">
           <TableRow className="[&>th]:text-green-600 [&>th]:font-bold [&>th]:text-center">
             <TableHead className="w-5" />
-            <TableHead className="w-15" >employment date</TableHead>
-            <TableHead className="sticky left-0 md:w-25" >name</TableHead>
-            <TableHead className="w-15" >current rate</TableHead>
-            <TableHead className="w-20" >role</TableHead>
-            <TableHead className="w-30" >mail</TableHead>
-            <TableHead className="w-20" >tel</TableHead>
+            <TableHead className="w-15">employment date</TableHead>
+            <TableHead className="sticky left-0 md:w-25">name</TableHead>
+            <TableHead className="w-15">current rate</TableHead>
+            <TableHead className="w-20">role</TableHead>
+            <TableHead className="w-30">mail</TableHead>
+            <TableHead className="w-20">tel</TableHead>
             <TableHead className="w-12">total</TableHead>
             <TableHead className="w-12">used</TableHead>
             <TableHead className="w-12">remaining</TableHead>
@@ -68,7 +73,13 @@ export function EmployeesPage({ employees }: { employees: Employee[] }) {
 
               const usedVacationDays =
                 emp.vacation?.reduce(
-                  (acc, r) => acc + Number(r.countDays),
+                  (acc, r) =>
+                    acc +
+                    differenceInCalendarDays(
+                      new Date(r.endDate),
+                      new Date(r.startDate),
+                    ) +
+                    1,
                   0,
                 ) ?? 0;
 
@@ -98,7 +109,7 @@ export function EmployeesPage({ employees }: { employees: Employee[] }) {
                     {emp.fullName}
                   </TableCell>
 
-                  <TableCell>{Number(emp.rate)}</TableCell>
+                  <TableCell>{Number(emp.currentRate)}</TableCell>
                   <TableCell>{emp.role}</TableCell>
 
                   <TableCell

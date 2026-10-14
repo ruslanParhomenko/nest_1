@@ -1,6 +1,8 @@
 import { EMPLOYEE_TEST } from "@/bd-test/employee";
 import { EmployeesPage } from "@/features/employee";
+import { getEmployees } from "@/features/employee-create/actions/get-employees";
 
 export default async function Page() {
-  return <EmployeesPage employees={EMPLOYEE_TEST} />;
+  const employees = await getEmployees();
+  return <EmployeesPage employees={employees} />;
 }

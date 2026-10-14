@@ -1,11 +1,10 @@
 export const EMPLOYEES_ROLE = {
   restaurant: [
-    { value: "all", label: "all" },
-    { value: "waiters", label: "waiters" },
-    { value: "barmen", label: "barmen" },
-    { value: "cook", label: "cook" },
-    { value: "mngr", label: "mngr" },
-    { value: "dish", label: "dish" },
-    { value: "buyer", label: "buyer" },
+    { value: "WAITERS", label: "waiters" },
+    { value: "BARMEN", label: "barmen" },
+    { value: "COOK", label: "cook" },
+    { value: "MGR", label: "mngr" },
+    { value: "DISH", label: "dish" },
+    { value: "BUYER", label: "buyer" },
   ],
 };

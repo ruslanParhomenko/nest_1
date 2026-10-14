@@ -19,12 +19,19 @@ export function useEmployeeForm({ id }: { id?: string }) {
   });
 
   const onSubmit: SubmitHandler<EmployeeForm> = async (data) => {
-    console.log(data);
+    const { vacation, ...rest } = data;
+    const payload = {
+      ...rest,
+      employmentDate: rest.employmentDate || null,
+      vacation: vacation
+        .filter((v) => v.startDate && v.endDate)
+        .map(({ startDate, endDate }) => ({ startDate, endDate })),
+    };
     try {
       if (id) {
         toast.success("Employee updated!");
       } else {
-        await createEmployee(data);
+        await createEmployee(payload);
         toast.success("Employee added!");
       }
 

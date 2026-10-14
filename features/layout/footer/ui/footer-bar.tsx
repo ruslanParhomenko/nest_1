@@ -1,6 +1,7 @@
 "use client";
 
 import AddEmployeeButton from "@/components/action-buttons/add-employee-button";
+import BackButton from "@/components/action-buttons/back-button";
 import EditButton from "@/components/action-buttons/edit-button";
 import SaveButton from "@/components/action-buttons/save-button";
 import { ACTION_ITEM_BY_ROUTE } from "@/constants/action-item";
@@ -29,6 +30,7 @@ export function FooterBar() {
       {has("add-employee") && (
         <AddEmployeeButton isEdit={isEditing} setIsEdit={setIsEditing} />
       )}
+      {has("back") && <BackButton />}
     </div>
   );
 }

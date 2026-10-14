@@ -10,16 +10,16 @@ interface EditContext {
 
 const EditContext = createContext<EditContext | null>(null);
 
-const EDIT_PATHS = new Set([]) as Set<string>;
+const EDIT_PATHS = new Set<string>([]);
 
- function EditProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+const EDIT_SEGMENTS = new Set(["create", "edit"]);
+
+function EditProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const mainRoute = pathname.split("/")[1] || "";
-  const isEditRoute = EDIT_PATHS.has(mainRoute);
+  const [mainRoute = "", ...rest] = pathname.split("/").filter(Boolean);
+
+  const isEditRoute =
+    EDIT_PATHS.has(mainRoute) || rest.some((s) => EDIT_SEGMENTS.has(s));
 
   const [state, setState] = useState({
     pathname,
@@ -46,7 +46,6 @@ const EDIT_PATHS = new Set([]) as Set<string>;
     </EditContext>
   );
 }
-
 
 export default function EditProviderWithSuspense({
   children,

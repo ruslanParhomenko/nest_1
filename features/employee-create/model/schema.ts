@@ -4,7 +4,6 @@ import { z } from "zod";
 export const vacationSchema = z.object({
   startDate: z.string(),
   endDate: z.string(),
-  countDays: z.string(),
 });
 
 export const employeesSchema = z.object({
@@ -22,7 +21,6 @@ export const employeesSchema = z.object({
 export const defaultVacationForm = {
   startDate: "",
   endDate: "",
-  countDays: "",
 };
 
 export const defaultEmployeeForm: Partial<EmployeeForm> = {

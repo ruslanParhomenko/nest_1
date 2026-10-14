@@ -16,14 +16,15 @@ export function EmployeeCreatePage({
 }) {
   const employee = id ? employees?.find((e) => e.id === id) : undefined;
 
-
-  console.log(employee);
-
-  const {isEditing, setIsEditing } = useEdit();
+  const { isEditing, setIsEditing } = useEdit();
 
   const { form, onSubmit } = useEmployeeForm({
     id,
   });
+
+  const error = form.formState.errors;
+
+  console.log(error);
 
   useEffect(() => {
     if (employee) {
@@ -36,6 +37,8 @@ export function EmployeeCreatePage({
       return;
     }
     setIsEditing(true);
+
+    console.log("isEditing", isEditing);
   }, []);
 
   return (
