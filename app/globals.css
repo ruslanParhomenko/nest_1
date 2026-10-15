@@ -128,3 +128,39 @@
     @apply font-sans;
   }
 }
+
+@property --n {
+  syntax: "<integer>";
+  initial-value: 1;
+  inherits: false;
+}
+
+@keyframes ring-fill {
+  from {
+    stroke-dashoffset: 70;
+  } /* старт с 30% */
+  to {
+    stroke-dashoffset: 0;
+  } /* 100% */
+}
+
+@keyframes count-up {
+  from {
+    --n: 1;
+  }
+  to {
+    --n: 50;
+  }
+}
+
+.ring-fill {
+  animation: ring-fill 40s linear infinite;
+}
+
+.count-up {
+  animation: count-up 40s linear infinite;
+  counter-reset: n var(--n);
+}
+.count-up::after {
+  content: counter(n);
+}

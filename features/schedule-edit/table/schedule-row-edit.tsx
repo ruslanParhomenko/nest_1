@@ -7,15 +7,10 @@ import {
 } from "react-hook-form";
 import { ScheduleType } from "../model/schema";
 import { TableCell, TableRow } from "@/components/ui/table";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import SelectField from "@/components/form-select/select-field";
 import MoveButton from "@/components/action-buttons/move-button";
 import { cn } from "@/lib/utils";
-import { Employee } from "@/bd-test/employee";
+
 import {
   calculateSalaryByHours,
   calculateShiftTotals,
@@ -24,6 +19,7 @@ import {
 import { color } from "../model/constants";
 import { memo, useState } from "react";
 import AppTooltip from "@/components/ui/app-tooltip";
+import type { GetEmployeesData } from "@/features/employee-create/model/schema";
 
 type RowProps = {
   row: FieldArrayWithId<ScheduleType, "rowShifts", "id">;
@@ -32,7 +28,7 @@ type RowProps = {
   remove: UseFieldArrayReturn<ScheduleType, "rowShifts", "id">["remove"];
   move: UseFieldArrayReturn<ScheduleType, "rowShifts", "id">["move"];
   selectedRow: number | null;
-  selectedEmployees: Employee[];
+  selectedEmployees: GetEmployeesData[];
 
   onCellFocus: (rowIndex: number, dayIndex: number) => void;
   onEmployeeChange: (name: string | null, rowIndex: number) => void;
@@ -128,7 +124,7 @@ function ScheduleRowEdit({
           fieldName={`rowShifts.${rowIndex}.employee`}
           data={selectedEmployees.map((e) => e.fullName)}
           className={cn(
-            "hover-cell truncate p-0 text-xs h-5!",
+            "hover-cell truncate text-xs h-5!",
             selectedRow === rowIndex && "text-red-600! font-bold",
           )}
           onChange={(name) => onEmployeeChange(name, rowIndex)}

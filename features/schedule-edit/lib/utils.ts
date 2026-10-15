@@ -1,3 +1,4 @@
+import type { GetEmployeesData } from "@/features/employee-create/model/schema";
 import {
   SHIFT_HOURS_MAP_DAY,
   SHIFT_HOURS_MAP_NIGHT,
@@ -5,7 +6,6 @@ import {
 } from "../model/constants";
 import { ScheduleType } from "../model/schema";
 import { ShiftCounts } from "../model/type";
-import { Employee } from "@/bd-test/employee";
 import { KeyboardEvent } from "react";
 
 export function getShiftCounts(
@@ -66,7 +66,10 @@ export function calculateShiftTotals(shifts: string[]) {
   return { totalDay: dayHours, totalNight: nightHours, total };
 }
 
-export function createEmptyRowShifts(employees: Employee[], daysCount: number) {
+export function createEmptyRowShifts(
+  employees: GetEmployeesData[],
+  daysCount: number,
+) {
   return employees.map((emp, index) => ({
     id: index.toString(),
     dayHours: "",
@@ -75,7 +78,7 @@ export function createEmptyRowShifts(employees: Employee[], daysCount: number) {
     salary: "",
     employee: emp.fullName,
     role: emp.role,
-    rate: emp.rate,
+    rate: emp.currentRate,
     employeeId: emp.id,
     shifts: Array(daysCount).fill(""),
   }));

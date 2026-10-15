@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { connection } from "next/server";
 import { EmployeesPage } from "@/features/employee";
 import { getEmployees } from "@/features/employee-create/actions/get-employees";
+import { SlowLoading } from "@/components/page/slow-loading";
 
 async function Employees() {
   await connection();
@@ -11,7 +12,7 @@ async function Employees() {
 
 export default function Page() {
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<SlowLoading />}>
       <Employees />
     </Suspense>
   );

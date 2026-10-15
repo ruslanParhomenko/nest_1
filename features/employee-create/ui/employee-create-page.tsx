@@ -1,6 +1,6 @@
 "use client";
 import FormWrapper from "@/components/wrapper/form-wrapper";
-import { GetEmployeesData } from "../model/schema";
+import type { GetEmployeesData } from "../model/schema";
 import { useEmployeeForm } from "../hook/use-employee-form";
 import EmployeeDataForm from "./employee-form";
 import VacationForm from "./vacation-form";
@@ -21,10 +21,6 @@ export function EmployeeCreatePage({
   const { form, onSubmit } = useEmployeeForm({
     id,
   });
-
-  const error = form.formState.errors;
-
-  console.log(error);
 
   useEffect(() => {
     if (employee) {

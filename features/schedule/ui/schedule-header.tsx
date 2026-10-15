@@ -15,11 +15,11 @@ export default function ScheduleTableHeader({
   return (
     <TableHeader>
       <TableRow className="border-0!">
-        <TableCell className="w-7" />
-        <TableCell className="w-10" />
-        <TableCell className="w-10" />
+        <TableCell className="w-6" />
+        <TableCell className="w-9" />
+        <TableCell className="w-9" />
         <TableCell className="w-14" />
-        <TableCell className="w-30 font-bold tracking-wider text-blue-800">
+        <TableCell className="w-32 font-bold tracking-wider text-blue-800">
           {MONTHS[month - 1].toUpperCase() || ""}
         </TableCell>
 

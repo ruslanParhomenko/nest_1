@@ -5,19 +5,19 @@ import { useFieldArray } from "react-hook-form";
 
 import ScheduleTable from "../table/schedule-table";
 import FormWrapper from "@/components/wrapper/form-wrapper";
-import { GetScheduleData } from "../model/type";
-import { Employee } from "@/bd-test/employee";
+import type { GetScheduleData } from "../model/type";
 import { useMonthDays } from "@/hooks/use-month-days";
-import { createEmptyRowShifts, getShiftCounts } from "../lib/utils";
+import { createEmptyRowShifts } from "../lib/utils";
 import { useScheduleForm } from "../hooks/use-schedule-form";
 import { EditMenu } from "@/features/edit-menu/ui/edit-menu";
+import { GetEmployeesData } from "@/features/employee-create/model/schema";
 
 export function ScheduleFormEdit({
   employees,
   schedule,
   tab,
 }: {
-  employees: Employee[];
+  employees: GetEmployeesData[];
   schedule: GetScheduleData | null;
   tab: string;
 }) {
@@ -34,6 +34,10 @@ export function ScheduleFormEdit({
     name: "rowShifts",
   });
 
+  const errors = form.formState.errors;
+
+  console.log(errors);
+
   function addRow() {
     replace([
       ...fields,
@@ -45,7 +49,7 @@ export function ScheduleFormEdit({
         employee: "",
         salary: "",
         role: "",
-        rate: 0,
+        rate: "1",
         employeeId: "",
         shifts: Array(daysCount).fill(""),
       },

@@ -1,15 +1,15 @@
 import { FieldArrayWithId, UseFieldArrayReturn } from "react-hook-form";
 import { ScheduleType } from "../model/schema";
 import { Table } from "@/components/ui/table";
-import { Employee } from "@/bd-test/employee";
 import ScheduleBodyEdit from "./schedule-body-edit";
 import ScheduleTableHeader from "../../schedule/ui/schedule-header";
 import ScheduleFooterEdit from "./schedule-footer-edit";
+import type { GetEmployeesData } from "@/features/employee-create/model/schema";
 
 interface ScheduleTableProps {
   tab: string;
   fields: FieldArrayWithId<ScheduleType, "rowShifts", "id">[];
-  selectedEmployees: Employee[];
+  selectedEmployees: GetEmployeesData[];
   remove: UseFieldArrayReturn<ScheduleType, "rowShifts", "id">["remove"];
   move: UseFieldArrayReturn<ScheduleType, "rowShifts", "id">["move"];
   update: UseFieldArrayReturn<ScheduleType, "rowShifts", "id">["update"];

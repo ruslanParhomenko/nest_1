@@ -9,9 +9,9 @@ import {
   useFormContext,
 } from "react-hook-form";
 import { ScheduleType } from "../model/schema";
-import { Employee } from "@/bd-test/employee";
 import { useCallback, useState } from "react";
 import ScheduleRowEdit from "./schedule-row-edit";
+import type { GetEmployeesData } from "@/features/employee-create/model/schema";
 
 export default function ScheduleBodyEdit({
   fields,
@@ -23,7 +23,7 @@ export default function ScheduleBodyEdit({
   setSelectedDay,
 }: {
   fields: FieldArrayWithId<ScheduleType, "rowShifts", "id">[];
-  selectedEmployees: Employee[];
+  selectedEmployees: GetEmployeesData[];
   remove: UseFieldArrayReturn<ScheduleType, "rowShifts", "id">["remove"];
   move: UseFieldArrayReturn<ScheduleType, "rowShifts", "id">["move"];
   update: UseFieldArrayReturn<ScheduleType, "rowShifts", "id">["update"];
@@ -54,7 +54,7 @@ export default function ScheduleBodyEdit({
         ...getValues(`rowShifts.${rowIndex}`),
         employee: employee.fullName,
         role: employee.role,
-        rate: employee.rate,
+        rate: employee.currentRate,
         employeeId: employee.id,
       });
     },

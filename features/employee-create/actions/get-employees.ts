@@ -11,13 +11,7 @@ export async function getEmployees() {
   cacheLife("max");
   cacheTag(EMPLOYEE_ACTION_TAG);
 
-  const requestId = crypto.randomUUID();
-
-  console.log("[getEmployees] EXECUTED", requestId);
-
   const employees = await fetcher<GetEmployeesData[]>(EMPLOYEE_ACTION_TAG);
-
-  console.log("[getEmployees] API RESPONSE", requestId);
 
   return employees;
 }

@@ -44,6 +44,8 @@ export function useScheduleForm(tab: string | null) {
       rowShifts: rowShiftsWithHours,
     };
 
+    console.log(formatData);
+
     // await createSchedule(formatData);
     toast.success("График успешно создан!");
 

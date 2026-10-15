@@ -1,12 +1,8 @@
-import { EMPLOYEE_TEST } from "@/bd-test/employee";
 import { EmployeeCreatePage } from "@/features/employee-create";
+import { getEmployees } from "@/features/employee-create/actions/get-employees";
 import { Suspense } from "react";
 
-export default function Page({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default function Page({ params }: { params: Promise<{ id: string }> }) {
   return (
     <Suspense fallback={null}>
       <EmployeeCreatePageResolver params={params} />
@@ -20,5 +16,6 @@ async function EmployeeCreatePageResolver({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  return <EmployeeCreatePage id={id} employees={EMPLOYEE_TEST} />;
+  const employees = await getEmployees();
+  return <EmployeeCreatePage id={id} employees={employees} />;
 }

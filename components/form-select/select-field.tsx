@@ -50,11 +50,7 @@ export default function SelectField({
         };
 
         return (
-          <Field
-            data-invalid={fieldState.invalid}
-            orientation={orientation}
-            className="pb-2"
-          >
+          <Field data-invalid={fieldState.invalid} orientation={orientation}>
             {fieldLabel && (
               <FieldLabel htmlFor={field.name}>{fieldLabel}</FieldLabel>
             )}
@@ -73,10 +69,10 @@ export default function SelectField({
                   className={cn(
                     className,
                     "w-full [&>svg]:hidden",
-                    field.value && "pr-9",
+                    field.value && "pr-2",
                     field.value &&
                       withOutBorder &&
-                      "border-transparent shadow-none text-green-600 pl-4",
+                      "border-transparent shadow-none text-green-600 pl-2",
                   )}
                 >
                   <SelectValue placeholder={placeHolder} />
