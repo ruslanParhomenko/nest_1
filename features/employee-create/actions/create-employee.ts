@@ -1,16 +1,19 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
+import { EMPLOYEE_ACTION_TAG } from "@/constants/action-tag";
 import { employeesSchema, type EmployeeForm } from "../model/schema";
 import { fetcher } from "@/lib/api";
 
 export async function createEmployee(values: EmployeeForm) {
   const parsed = employeesSchema.safeParse(values);
+
   if (!parsed.success) {
     return { ok: false as const, error: "Validation failed" };
   }
 
   const { vacation, ...rest } = parsed.data;
+
   const payload = {
     ...rest,
     employmentDate: rest.employmentDate || null,
@@ -24,7 +27,10 @@ export async function createEmployee(values: EmployeeForm) {
       method: "POST",
       body: JSON.stringify(payload),
     });
+
+    revalidateTag(EMPLOYEE_ACTION_TAG, "max");
     revalidatePath("/employee");
+
     return { ok: true as const, data: created };
   } catch (e) {
     return {

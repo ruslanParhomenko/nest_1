@@ -1,16 +1,23 @@
 "use server";
+
 import { EMPLOYEE_ACTION_TAG } from "@/constants/action-tag";
 import { fetcher } from "@/lib/api";
 import { cacheLife, cacheTag } from "next/cache";
 import { GetEmployeesData } from "../model/schema";
 
-const tag = EMPLOYEE_ACTION_TAG;
-
 export async function getEmployees() {
-  "use cache";
+  "use cache: remote";
 
   cacheLife("max");
-  cacheTag(tag);
+  cacheTag(EMPLOYEE_ACTION_TAG);
 
-  return fetcher<GetEmployeesData[]>(tag);
+  const requestId = crypto.randomUUID();
+
+  console.log("[getEmployees] EXECUTED", requestId);
+
+  const employees = await fetcher<GetEmployeesData[]>(EMPLOYEE_ACTION_TAG);
+
+  console.log("[getEmployees] API RESPONSE", requestId);
+
+  return employees;
 }

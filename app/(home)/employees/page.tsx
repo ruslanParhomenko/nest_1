@@ -4,14 +4,14 @@ import { EmployeesPage } from "@/features/employee";
 import { getEmployees } from "@/features/employee-create/actions/get-employees";
 
 async function Employees() {
-  await connection(); // не выполнять на сборке
+  await connection();
   const employees = await getEmployees();
   return <EmployeesPage employees={employees} />;
 }
 
 export default function Page() {
   return (
-    <Suspense fallback={null /* или скелетон */}>
+    <Suspense fallback={null}>
       <Employees />
     </Suspense>
   );

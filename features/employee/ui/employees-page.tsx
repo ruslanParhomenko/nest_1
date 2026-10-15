@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Employee } from "@/bd-test/employee";
 import {
   Table,
   TableBody,
@@ -25,8 +24,6 @@ export function EmployeesPage({
   employees: GetEmployeesData[];
 }) {
   const router = useRouter();
-
-  console.log(employees);
 
   const tab = "WAITERS";
 
