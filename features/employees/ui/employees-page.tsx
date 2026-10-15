@@ -14,9 +14,10 @@ import { cn } from "@/lib/utils";
 import { formatShortDate } from "@/utils/get-format-date";
 import { handleCopy } from "@/utils/handler-copy-text";
 import { differenceInCalendarDays, differenceInMonths } from "date-fns";
-import { CheckCircle, UserX } from "lucide-react";
+import { CheckCircle, PenBox, UserX } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { GetEmployeesData } from "@/features/employee-create/model/schema";
+import { EditMenu } from "@/features/edit-menu/ui/edit-menu";
 
 export function EmployeesPage({
   employees,
@@ -36,7 +37,7 @@ export function EmployeesPage({
   if (!tab || !currentDate) return null;
 
   const handleClickName = (id: string) => {
-    router.push(`/employee/edit/${id}`);
+    router.push(`/employee/view/${id}`);
   };
 
   return (
@@ -55,6 +56,8 @@ export function EmployeesPage({
             <TableHead className="w-12">used</TableHead>
             <TableHead className="w-12">remaining</TableHead>
             <TableHead className="w-15">status</TableHead>
+                        <TableHead className="w-15">actions</TableHead>
+
           </TableRow>
         </TableHeader>
 
@@ -127,12 +130,23 @@ export function EmployeesPage({
                   <TableCell>{usedVacationDays}</TableCell>
                   <TableCell>{vacationDays - usedVacationDays}</TableCell>
 
-                  <TableCell className="flex items-center justify-center">
+                  <TableCell>
+                    <div className="flex items-center justify-center gap-2">
+
                     {!emp.isActive ? (
                       <UserX size={14} className="text-rd" />
                     ) : (
                       <CheckCircle size={14} className="text-bl" />
                     )}
+                    </div>
+                  </TableCell>
+
+                  <TableCell>
+                    <div className="flex items-center justify-center gap-2" onClick={()=> router.push(`/employee/edit/${emp.id}`)}>
+
+                    <PenBox size={14} className="text-muted-foreground" />
+                    </div>
+
                   </TableCell>
                 </TableRow>
               );

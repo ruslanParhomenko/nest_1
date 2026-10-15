@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { connection } from "next/server";
-import { EmployeesPage } from "@/features/employee";
+import { EmployeesPage } from "@/features/employees";
 import { getEmployees } from "@/features/employee-create/actions/get-employees";
 import { SlowLoading } from "@/components/page/slow-loading";
 
