@@ -5,7 +5,6 @@ import {
   SCHEDULE_MAIN_ROUTE,
 } from "@/constants/main-route";
 import { cn } from "@/lib/utils";
-import { MONTHS } from "@/utils/get-month-days";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 
@@ -16,15 +15,15 @@ export default function NavLink() {
 
   const searchParams = useSearchParams();
   const tab = searchParams.get("tab");
+  const month = searchParams.get("month")
+  const year = searchParams.get("year");
 
-  const date = new Date();
-  const month = MONTHS[date.getMonth()];
-  const year = date.getFullYear().toString();
-  const day = date.getDate();
+
+  console.log(tab);
 
   const URL_BY_NAV = {
-    schedule: `/${SCHEDULE_MAIN_ROUTE}?tab=month&month=${month}&year=${year}`,
-    employees: `/${EMPLOYEES_MAIN_ROUTE}?tab=day&day=${day}&month=${month}&year=${year}`,
+    schedule: `/${SCHEDULE_MAIN_ROUTE}?tab=${tab}&&month=${month}&year=${year}`,
+    employees: `/${EMPLOYEES_MAIN_ROUTE}?tab=${tab}&month=${month}&year=${year}`,
   };
 
   if (!patchName || tab === "form") return null;

@@ -1,4 +1,4 @@
-import NavLink from "@/components/nav-layout/header-layout/nav-link";
+import NavLink from "@/features/layout/header/ui/nav-link";
 import { FooterBar } from "@/features/layout/footer";
 import HeaderBar from "@/features/layout/header/ui/header-bar";
 import EditProviderWithSuspense from "@/provider/edit-provider";
@@ -15,9 +15,7 @@ export default async function HomeLayout({
         <Suspense fallback={<div>Loading...</div>}>
           <HeaderBar />
         </Suspense>
-        <Suspense fallback={<div>Loading...</div>}>
-          <NavLink />
-        </Suspense>
+  
       </header>
       <main className="flex flex-1 flex-col px-2 overflow-y-auto">
         {children}

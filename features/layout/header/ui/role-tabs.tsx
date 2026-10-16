@@ -16,22 +16,22 @@ export default function RoleTabs({ urlTab }: { urlTab: string }) {
 
   const storageKey = `nav-tab-${pathname}`;
 
-  useEffect(() => {
-    if (!urlTab) return;
+  // useEffect(() => {
+  //   if (!urlTab) return;
 
-    const saved = localStorage.getItem(storageKey);
+  //   const saved = localStorage.getItem(storageKey);
 
-    if (!saved) return;
+  //   if (!saved) return;
 
-    if (urlTab === saved) return;
+  //   if (urlTab === saved) return;
 
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("tab", saved);
+  //   const params = new URLSearchParams(searchParams.toString());
+  //   params.set("tab", saved);
 
-    startTransition(() => {
-      router.replace(`${pathname}?${params.toString()}`);
-    });
-  }, [pathname, storageKey, urlTab]);
+  //   startTransition(() => {
+  //     router.replace(`${pathname}?${params.toString()}`);
+  //   });
+  // }, [pathname, storageKey, urlTab]);
 
   const handleTabChange = (value: string) => {
     localStorage.setItem(storageKey, value);

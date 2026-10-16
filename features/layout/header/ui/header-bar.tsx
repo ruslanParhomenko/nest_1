@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { useSearchParams } from "next/navigation";
 import SelectMonthYear from "./month-year-select";
 import RoleTabs from "./role-tabs";
+import NavLink from "./nav-link";
 
 export default function HeaderBar() {
   const searchParams = useSearchParams();
@@ -22,6 +23,8 @@ export default function HeaderBar() {
       )}
     >
       {showTabs && <RoleTabs urlTab={urlTab} />}
+                <NavLink />
+      
       {showMonthYear && (
         <SelectMonthYear urlMonth={urlMonth} urlYear={urlYear} />
       )}
