@@ -17,12 +17,11 @@ async function EmployeeCreatePageResolver({
 }) {
   const { id } = await params;
 
-  if (!id) {
-    return null;
-  }
+  if (!id) return null;
+
   const employee = (await getEmployees()).find((e) => e.id === id) || null;
-  if (!employee) {
-    return null;
-  }
-  return <EmployeeViewPage  employee={employee} />;
+
+  if (!employee) return null;
+
+  return <EmployeeViewPage employee={employee} />;
 }

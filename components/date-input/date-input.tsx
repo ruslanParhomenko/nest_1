@@ -57,11 +57,7 @@ export default function DateField({
         };
 
         return (
-          <Field
-            data-invalid={fieldState.invalid}
-            orientation={orientation}
-            className="pb-2"
-          >
+          <Field data-invalid={fieldState.invalid} orientation={orientation}>
             {fieldLabel && (
               <FieldLabel htmlFor={fieldName}>{fieldLabel}</FieldLabel>
             )}

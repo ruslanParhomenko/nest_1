@@ -17,7 +17,6 @@ import { differenceInCalendarDays, differenceInMonths } from "date-fns";
 import { CheckCircle, PenBox, UserX } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { GetEmployeesData } from "@/features/employee-create/model/schema";
-import { EditMenu } from "@/features/edit-menu/ui/edit-menu";
 
 export function EmployeesPage({
   employees,
@@ -56,8 +55,7 @@ export function EmployeesPage({
             <TableHead className="w-12">used</TableHead>
             <TableHead className="w-12">remaining</TableHead>
             <TableHead className="w-15">status</TableHead>
-                        <TableHead className="w-15">actions</TableHead>
-
+            <TableHead className="w-15">actions</TableHead>
           </TableRow>
         </TableHeader>
 
@@ -132,21 +130,25 @@ export function EmployeesPage({
 
                   <TableCell>
                     <div className="flex items-center justify-center gap-2">
-
-                    {!emp.isActive ? (
-                      <UserX size={14} className="text-rd" />
-                    ) : (
-                      <CheckCircle size={14} className="text-bl" />
-                    )}
+                      {!emp.isActive ? (
+                        <UserX size={16} className="text-rd" />
+                      ) : (
+                        <CheckCircle size={16} className="text-bl" />
+                      )}
                     </div>
                   </TableCell>
 
                   <TableCell>
-                    <div className="flex items-center justify-center gap-2" onClick={()=> router.push(`/employee/edit/${emp.id}`)}>
-
-                    <PenBox size={14} className="text-muted-foreground" />
+                    <div
+                      className="flex items-center justify-center gap-2"
+                      onClick={() => router.push(`/employee/edit/${emp.id}`)}
+                    >
+                      <PenBox
+                        size={16}
+                        className="text-blue-600"
+                        strokeWidth={1.5}
+                      />
                     </div>
-
                   </TableCell>
                 </TableRow>
               );
