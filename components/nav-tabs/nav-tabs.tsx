@@ -52,8 +52,8 @@ export default function NavTabs<T extends string>({
           >
             <span
               className={cn(
-                "md:text-md text-bl/80 hover:text-rd truncate text-xs",
-                item === activeTab ? "text-rd" : "",
+                "md:text-md text-blue-600 hover:text-rd truncate text-xs",
+                item === activeTab ? "text-red-600" : "",
               )}
             >
               {item}

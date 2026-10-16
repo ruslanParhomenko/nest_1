@@ -30,11 +30,14 @@ export default function SelectOptions({
     >
       <SelectTrigger
         className={cn(
-          "bg-background justify-center border-0 shadow-none [&>svg]:hidden",
+          "bg-background flex justify-center border-0 shadow-none [&>svg]:hidden",
           className,
         )}
       >
-        <SelectValue placeholder={placeHolder ?? ""} />
+        <SelectValue
+          placeholder={placeHolder ?? ""}
+          className="flex items-center justify-center text-blue-600 font-bold"
+        />
       </SelectTrigger>
       <SelectContent className="mt-4">
         <div className="grid grid-cols-3 gap-3 p-2">

@@ -1,12 +1,13 @@
 "use client";
 
 import NavTabs from "@/components/nav-tabs/nav-tabs";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useTransition } from "react";
 import { ROLE_TABS } from "../model/constants";
 
 export default function RoleTabs({ urlTab }: { urlTab: string }) {
   const pathname = usePathname();
+  const router = useRouter();
   const searchParams = useSearchParams();
 
   const [isPending, startTransition] = useTransition();
@@ -28,7 +29,7 @@ export default function RoleTabs({ urlTab }: { urlTab: string }) {
     params.set("tab", saved);
 
     startTransition(() => {
-      window.history.replaceState(null, "", `${pathname}?${params.toString()}`);
+      router.replace(`${pathname}?${params.toString()}`);
     });
   }, [pathname, storageKey, urlTab]);
 
@@ -38,7 +39,9 @@ export default function RoleTabs({ urlTab }: { urlTab: string }) {
     const params = new URLSearchParams(searchParams.toString());
     params.set("tab", value);
 
-    window.history.replaceState(null, "", `${pathname}?${params.toString()}`);
+    startTransition(() => {
+      router.replace(`${pathname}?${params.toString()}`);
+    });
   };
 
   if (!urlTab) return null;

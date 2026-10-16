@@ -37,9 +37,9 @@ export default function SelectMonthYear({
   return (
     <div className="order-1 flex items-center justify-center gap-3 md:order-2">
       <SelectOptions
-        options={MONTHS.map((month) => ({
-          value: month,
-          label: month.slice(0, 3),
+        options={MONTHS.map((month, index) => ({
+          value: (index + 1).toString(),
+          label: (index + 1).toString(),
         }))}
         value={urlMonth}
         onChange={handleMonthChange}

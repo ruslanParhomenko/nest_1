@@ -1,7 +1,5 @@
 "use client";
 
-import { useIsMobile } from "@/hooks/use-mobile";
-
 import { cn } from "@/lib/utils";
 import { useSearchParams } from "next/navigation";
 import SelectMonthYear from "./month-year-select";
@@ -9,13 +7,12 @@ import RoleTabs from "./role-tabs";
 
 export default function HeaderBar() {
   const searchParams = useSearchParams();
-  const isMobile = useIsMobile();
 
   const urlMonth = searchParams.get("month");
   const urlYear = searchParams.get("year");
   const urlTab = searchParams.get("tab");
 
-  const showTabs = urlTab && !isMobile;
+  const showTabs = urlTab;
   const showMonthYear = urlMonth && urlYear;
 
   return (
