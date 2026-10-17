@@ -3,17 +3,18 @@
 import SelectOptions from "@/components/select/select-options";
 import { MONTHS, YEARS } from "@/utils/get-month-days";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useLayoutEffect } from "react";
 
-export default function SelectMonthYear({
-  urlMonth,
-  urlYear,
-}: {
-  urlMonth: string;
-  urlYear: string;
-}) {
+export default function SelectMonthYear() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
+  const currentMonth = new Date().getMonth() + 1;
+  const currentYear = new Date().getFullYear();
+
+  const urlMonth = searchParams.get("month");
+  const urlYear = searchParams.get("year");
 
   const selectClassName =
     "md:w-24 w-14  md:h-7! h-6!  md:border-border/30 px-1 rounded-md md:text-md text-xs bg-border/30";
@@ -33,6 +34,18 @@ export default function SelectMonthYear({
 
     router.replace(`${pathname}?${params.toString()}`);
   };
+
+  useEffect(() => {
+    if (urlMonth && urlYear) return;
+    const params = new URLSearchParams(searchParams.toString());
+
+    params.set("month", currentMonth.toString());
+    params.set("year", currentYear.toString());
+
+    router.replace(`${pathname}?${params.toString()}`);
+  }, []);
+
+  if (!urlMonth || !urlYear) return null;
 
   return (
     <div className="order-1 flex items-center justify-center gap-3 md:order-2">

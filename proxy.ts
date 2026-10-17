@@ -1,33 +1,22 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { getToken } from "next-auth/jwt";
 
-export function proxy(request: NextRequest) {
-  if (request.nextUrl.pathname === "/") {
-    const { searchParams } = request.nextUrl;
+export async function proxy(req: NextRequest) {
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  const { pathname } = req.nextUrl;
 
-    const date = new Date();
-    const currentMonth = date.getMonth() + 1;
-    const currentYear = date.getFullYear();
+  if (pathname === "/" && token) {
+    return NextResponse.redirect(new URL("/home", req.url));
+  }
 
-    const tab = searchParams.get("tab") ?? "bar";
-    const month = searchParams.get("month") ?? currentMonth.toString();
-    const year = searchParams.get("year") ?? currentYear.toString();
-
-    const url = request.nextUrl.clone();
-
-    url.pathname = "/schedule";
-    url.searchParams.set("tab", tab);
-    url.searchParams.set("month", month);
-    url.searchParams.set("year", year);
-
-    return NextResponse.redirect(url);
+  if (pathname !== "/" && !token) {
+    return NextResponse.redirect(new URL("/", req.url));
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: [
-    "/",
-    "/((?!$|api|_next/static|_next/image|favicon\\.ico|.*\\.svg$|.*\\.png$|.*\\.jpg$|.*\\.webp$|.*\\.ico$).*)",
-  ],
+  matcher: ["/", "/home/:path*", "/dashboard/:path*"],
 };

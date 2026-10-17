@@ -3,6 +3,7 @@
 import AddEmployeeButton from "@/components/action-buttons/add-employee-button";
 import BackButton from "@/components/action-buttons/back-button";
 import EditButton from "@/components/action-buttons/edit-button";
+import LogOutButton from "@/components/action-buttons/logout-button";
 import SaveButton from "@/components/action-buttons/save-button";
 import { ACTION_ITEM_BY_ROUTE } from "@/constants/action-item";
 import { useFormId } from "@/hooks/use-form-id";
@@ -31,6 +32,7 @@ export function FooterBar() {
         <AddEmployeeButton isEdit={isEditing} setIsEdit={setIsEditing} />
       )}
       {has("back") && <BackButton />}
+      <LogOutButton />
     </div>
   );
 }

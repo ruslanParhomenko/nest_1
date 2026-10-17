@@ -4,6 +4,8 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { SessionProvider } from "next-auth/react";
+import { SessionProviders } from "@/provider/session-provider";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -36,8 +38,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       )}
     >
       <body className="flex h-dvh flex-col overflow-hidden">
-        <Toaster />
-        <TooltipProvider>{children}</TooltipProvider>
+        <SessionProviders>
+          <Toaster />
+          <TooltipProvider>{children}</TooltipProvider>
+        </SessionProviders>
       </body>
     </html>
   );

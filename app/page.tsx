@@ -1,10 +1,14 @@
-import { getSchedule } from "@/features/schedule/actions/get-schedule";
+import GoogleButton from "@/components/action-buttons/google-button";
+import { Suspense } from "react";
 
-export default async function Home() {
-  const schedule = (await getSchedule()) as any;
+export default function Page() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      {schedule.message}
-    </div>
+    <Suspense
+      fallback={
+        <div className="flex h-dvh items-center justify-center">loading...</div>
+      }
+    >
+      <GoogleButton />
+    </Suspense>
   );
 }
