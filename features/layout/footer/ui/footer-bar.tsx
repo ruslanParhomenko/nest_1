@@ -23,15 +23,17 @@ export function FooterBar() {
   const has = (key: string) => actions.includes(key);
 
   return (
-    <div className="bg-background flex items-center justify-start gap-6 pb-3 pt-1 px-4">
-      {has("edit") && (
-        <EditButton isEdit={isEditing} setIsEdit={setIsEditing} />
-      )}
-      {has("save") && isEditing && <SaveButton formId={formId} />}
-      {has("add-employee") && (
-        <AddEmployeeButton isEdit={isEditing} setIsEdit={setIsEditing} />
-      )}
-      {has("back") && <BackButton />}
+    <div className="bg-background flex items-center justify-between gap-6 pb-3 pt-1 px-4">
+      <div className="flex items-center gap-4">
+        {has("edit") && (
+          <EditButton isEdit={isEditing} setIsEdit={setIsEditing} />
+        )}
+        {has("save") && isEditing && <SaveButton formId={formId} />}
+        {has("add-employee") && (
+          <AddEmployeeButton isEdit={isEditing} setIsEdit={setIsEditing} />
+        )}
+        {has("back") && <BackButton />}
+      </div>
       <LogOutButton />
     </div>
   );

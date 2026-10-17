@@ -48,7 +48,7 @@ export default function SelectMonthYear() {
   if (!urlMonth || !urlYear) return null;
 
   return (
-    <div className="order-1 flex items-center justify-center gap-3 md:order-2">
+    <div className="order-1 flex items-center justify-end gap-3 md:order-2">
       <SelectOptions
         options={MONTHS.map((_month, index) => ({
           value: (index + 1).toString(),

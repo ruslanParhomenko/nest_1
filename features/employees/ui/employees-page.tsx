@@ -25,19 +25,24 @@ export function EmployeesPage({
 }) {
   const router = useRouter();
 
-  const tab = "WAITERS";
-
   const [currentDate, setCurrentDate] = useState<Date | null>(null);
 
   useEffect(() => {
     setCurrentDate(new Date());
   }, []);
 
-  if (!tab || !currentDate) return null;
+  if (!currentDate) return null;
 
   const handleClickName = (id: string) => {
     router.push(`/employee/view/${id}`);
   };
+
+  if (employees.length === 0)
+    return (
+      <div className="flex flex-col items-center justify-center h-dvh text-red-600 gap-4">
+        not found
+      </div>
+    );
 
   return (
     <div className="mt-4 flex flex-col items-center justify-center gap-4">
@@ -60,99 +65,104 @@ export function EmployeesPage({
         </TableHeader>
 
         <TableBody>
-          {[...employees]
-            .sort((a, b) => a.fullName.localeCompare(b.fullName))
-            .map((emp, idx) => {
-              const monthsWorked = emp.employmentDate
-                ? differenceInMonths(currentDate, emp.employmentDate)
-                : 0;
+          {[
+            ...employees
+              .filter((e) => e.role === "BARMEN")
+              .sort((a, b) => a.fullName.localeCompare(b.fullName)),
+            ...employees
+              .filter((e) => e.role === "WAITERS")
+              .sort((a, b) => a.fullName.localeCompare(b.fullName)),
+          ].map((emp, idx) => {
+            const monthsWorked = emp.employmentDate
+              ? differenceInMonths(currentDate, emp.employmentDate)
+              : 0;
 
-              const vacationDays = Math.round(monthsWorked * 2.33);
+            const vacationDays = Math.round(monthsWorked * 2.33);
 
-              const usedVacationDays =
-                emp.vacation?.reduce(
-                  (acc, r) =>
-                    acc +
-                    differenceInCalendarDays(
-                      new Date(r.endDate),
-                      new Date(r.startDate),
-                    ) +
-                    1,
-                  0,
-                ) ?? 0;
+            const usedVacationDays =
+              emp.vacation?.reduce(
+                (acc, r) =>
+                  acc +
+                  differenceInCalendarDays(
+                    new Date(r.endDate),
+                    new Date(r.startDate),
+                  ) +
+                  1,
+                0,
+              ) ?? 0;
 
-              return (
-                <TableRow
-                  key={emp.id}
-                  className={cn(
-                    "hover:text-bl cursor-pointer [&>td]:text-center",
-                    !emp.employmentDate && "text-rd font-bold",
-                    !emp.isActive ? "text-rd/30!" : "",
-                  )}
+            return (
+              <TableRow
+                key={emp.id}
+                className={cn(
+                  "hover:text-bl cursor-pointer [&>td]:text-center",
+                  !emp.employmentDate && "text-rd font-bold",
+                  !emp.isActive ? "text-rd/30!" : "",
+                )}
+              >
+                <TableCell className="text-muted-foreground font-medium">
+                  {idx + 1}
+                </TableCell>
+
+                <TableCell>
+                  {emp.employmentDate
+                    ? formatShortDate(emp.employmentDate)
+                    : "-"}
+                </TableCell>
+
+                <TableCell
+                  className="bg-background sticky left-0 z-10 w-32 md:bg-transparent print:bg-transparent"
+                  onClick={() => handleClickName(emp.id)}
                 >
-                  <TableCell className="text-muted-foreground font-medium">
-                    {idx + 1}
-                  </TableCell>
+                  {emp.fullName}
+                </TableCell>
 
-                  <TableCell>
-                    {emp.employmentDate
-                      ? formatShortDate(emp.employmentDate)
-                      : "-"}
-                  </TableCell>
+                <TableCell>{Number(emp.currentRate)}</TableCell>
+                <TableCell>{emp.role}</TableCell>
 
-                  <TableCell
-                    className="bg-background sticky left-0 z-10 w-32 md:bg-transparent print:bg-transparent"
-                    onClick={() => handleClickName(emp.id)}
+                <TableCell
+                  className="truncate"
+                  onClick={() => emp.mail && handleCopy(emp.mail)}
+                >
+                  {emp.mail}
+                </TableCell>
+
+                <TableCell
+                  className="truncate"
+                  onClick={() => emp.tel && handleCopy(emp.tel)}
+                >
+                  {emp.tel || "-"}
+                </TableCell>
+
+                <TableCell>{vacationDays}</TableCell>
+                <TableCell>{usedVacationDays}</TableCell>
+                <TableCell>{vacationDays - usedVacationDays}</TableCell>
+
+                <TableCell>
+                  <div className="flex items-center justify-center gap-2">
+                    {!emp.isActive ? (
+                      <UserX size={16} className="text-rd" />
+                    ) : (
+                      <CheckCircle size={16} className="text-bl" />
+                    )}
+                  </div>
+                </TableCell>
+
+                <TableCell>
+                  <div
+                    className="flex items-center justify-center gap-2"
+                    onClick={() => router.push(`/employee/edit/${emp.id}`)}
                   >
-                    {emp.fullName}
-                  </TableCell>
-
-                  <TableCell>{Number(emp.currentRate)}</TableCell>
-                  <TableCell>{emp.role}</TableCell>
-
-                  <TableCell
-                    className="truncate"
-                    onClick={() => emp.mail && handleCopy(emp.mail)}
-                  >
-                    {emp.mail}
-                  </TableCell>
-
-                  <TableCell
-                    className="truncate"
-                    onClick={() => emp.tel && handleCopy(emp.tel)}
-                  >
-                    {emp.tel || "-"}
-                  </TableCell>
-
-                  <TableCell>{vacationDays}</TableCell>
-                  <TableCell>{usedVacationDays}</TableCell>
-                  <TableCell>{vacationDays - usedVacationDays}</TableCell>
-
-                  <TableCell>
-                    <div className="flex items-center justify-center gap-2">
-                      {!emp.isActive ? (
-                        <UserX size={16} className="text-rd" />
-                      ) : (
-                        <CheckCircle size={16} className="text-bl" />
-                      )}
-                    </div>
-                  </TableCell>
-
-                  <TableCell>
-                    <div
-                      className="flex items-center justify-center gap-2"
-                      onClick={() => router.push(`/employee/edit/${emp.id}`)}
-                    >
-                      <PenBox
-                        size={16}
-                        className="text-blue-600"
-                        strokeWidth={1.5}
-                      />
-                    </div>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
+                    <PenBox
+                      size={16}
+                      className="text-blue-600"
+                      strokeWidth={1.5}
+                    />
+                  </div>
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
     </div>

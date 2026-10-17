@@ -15,11 +15,8 @@ export default function NavLink() {
 
   const searchParams = useSearchParams();
   const tab = searchParams.get("tab");
-  const month = searchParams.get("month")
+  const month = searchParams.get("month");
   const year = searchParams.get("year");
-
-
-  console.log(tab);
 
   const URL_BY_NAV = {
     schedule: `/${SCHEDULE_MAIN_ROUTE}?tab=${tab}&&month=${month}&year=${year}`,
@@ -38,7 +35,7 @@ export default function NavLink() {
             href={URL_BY_NAV[item as keyof typeof URL_BY_NAV]}
             className={cn(
               "border-b-2 border-transparent pb-1 text-sm text-muted-foreground hover:text-foreground tracking-wider font-bold",
-              isActive && "border-red-600 text-red-600 hover:text-red-600",
+              isActive && " text-red-600 hover:text-red-600",
             )}
           >
             {item}

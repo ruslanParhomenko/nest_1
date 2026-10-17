@@ -1,3 +1,3 @@
 export default function Page() {
-  return <div>Home</div>;
+  return <div className="flex h-dvh items-center justify-center">Home</div>;
 }
