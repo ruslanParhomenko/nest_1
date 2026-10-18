@@ -6,7 +6,7 @@ import { cacheLife, cacheTag } from "next/cache";
 
 const tag = SCHEDULE_ACTION_TAG;
 
-export async function getSchedule() {
+export async function getSchedule()  {
   "use cache";
 
   cacheLife("max");

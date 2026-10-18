@@ -3,6 +3,7 @@
 import AddEmployeeButton from "@/components/action-buttons/add-employee-button";
 import BackButton from "@/components/action-buttons/back-button";
 import EditButton from "@/components/action-buttons/edit-button";
+import EditScheduleButton from "@/components/action-buttons/edit-schedule";
 import LogOutButton from "@/components/action-buttons/logout-button";
 import SaveButton from "@/components/action-buttons/save-button";
 import { ACTION_ITEM_BY_ROUTE } from "@/constants/action-item";
@@ -25,6 +26,9 @@ export function FooterBar() {
   return (
     <div className="bg-background flex items-center justify-between gap-6 pb-3 pt-1 px-4">
       <div className="flex items-center gap-4">
+      {has("edit-schedule") && (
+          <EditScheduleButton isEdit={isEditing} setIsEdit={setIsEditing} />
+        )}
         {has("edit") && (
           <EditButton isEdit={isEditing} setIsEdit={setIsEditing} />
         )}

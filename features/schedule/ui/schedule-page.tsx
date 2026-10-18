@@ -8,7 +8,7 @@ export function SchedulePage({ employees }: { employees: GetEmployeesData[] }) {
   const { isEditing } = useEdit();
 
   if (isEditing) {
-    return <ScheduleEdit employees={employees} />;
+    return <ScheduleEdit employees={employees} schedule={null} />;
   }
 
   return <ScheduleView />;

@@ -7,7 +7,6 @@ import ScheduleFooterEdit from "./schedule-footer-edit";
 import type { GetEmployeesData } from "@/features/employee-create/model/schema";
 
 interface ScheduleTableProps {
-  tab: string;
   fields: FieldArrayWithId<ScheduleType, "rowShifts", "id">[];
   selectedEmployees: GetEmployeesData[];
   remove: UseFieldArrayReturn<ScheduleType, "rowShifts", "id">["remove"];
@@ -24,7 +23,6 @@ export default function ScheduleTable({
   remove,
   move,
   update,
-  tab,
 }: ScheduleTableProps) {
   return (
     <Table className="mt-4 table-fixed">
@@ -43,7 +41,7 @@ export default function ScheduleTable({
         update={update}
       />
 
-      <ScheduleFooterEdit role={tab as string} />
+      <ScheduleFooterEdit />
     </Table>
   );
 }

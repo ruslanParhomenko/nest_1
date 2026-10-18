@@ -10,6 +10,7 @@ import {
 import { useFormContext, useWatch } from "react-hook-form";
 import { ScheduleType } from "../model/schema";
 import { getShiftCounts } from "../lib/utils";
+import { useSearchParams } from "next/navigation";
 
 const SHIFT_ICONS = {
   day: Sun,
@@ -26,8 +27,13 @@ function getShiftIcon(shift: string) {
   return SHIFT_ICONS.day;
 }
 
-export default function ScheduleFooterEdit({ role }: { role: string }) {
+export default function ScheduleFooterEdit() {
   const form = useFormContext<ScheduleType>();
+
+  const searchParams = useSearchParams();
+
+
+  const role = searchParams.get("tab")
 
   const rowShifts = useWatch({
     control: form.control,

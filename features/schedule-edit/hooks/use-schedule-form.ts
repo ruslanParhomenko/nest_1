@@ -7,9 +7,15 @@ import { calculateSalaryByHours, calculateShiftTotals } from "../lib/utils";
 import { EMPLOYEE_ROLES_BY_DEPARTMENT } from "../model/constants";
 import { defaultSchedule, scheduleSchema, ScheduleType } from "../model/schema";
 import { useEdit } from "@/provider/edit-provider";
+import { useSearchParams } from "next/navigation";
 
-export function useScheduleForm(tab: string | null) {
+export function useScheduleForm() {
   const { month, year } = useMonthDays();
+
+  const searchParams = useSearchParams();
+  const tab = searchParams.get("tab");
+
+  
   const { setIsEditing: setIsEdit } = useEdit();
 
   const form = useForm<ScheduleType>({
@@ -44,7 +50,6 @@ export function useScheduleForm(tab: string | null) {
       rowShifts: rowShiftsWithHours,
     };
 
-    console.log(formatData);
 
     // await createSchedule(formatData);
     toast.success("График успешно создан!");

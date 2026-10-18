@@ -15,11 +15,9 @@ import { GetEmployeesData } from "@/features/employee-create/model/schema";
 export function ScheduleFormEdit({
   employees,
   schedule,
-  tab,
 }: {
   employees: GetEmployeesData[];
   schedule: GetScheduleData | null;
-  tab: string;
 }) {
   const { daysCount } = useMonthDays();
 
@@ -27,7 +25,7 @@ export function ScheduleFormEdit({
 
   const [selectedDay, setSelectedDay] = useState<number>(todayDay);
 
-  const { form, onSubmit } = useScheduleForm(tab);
+  const { form, onSubmit } = useScheduleForm();
 
   const { fields, remove, replace, move, update } = useFieldArray({
     control: form.control,
@@ -75,7 +73,6 @@ export function ScheduleFormEdit({
         remove={remove}
         move={move}
         update={update}
-        tab={tab}
       />
     </FormWrapper>
   );

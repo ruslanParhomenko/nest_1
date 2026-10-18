@@ -35,5 +35,14 @@ export const authOptions: NextAuthOptions = {
 
       return token;
     },
+
+
+    async signIn({ account, profile }) {
+      if (account && profile) {
+        const isAdmin = profile.email === ADMIN_EMAIL;
+        return isAdmin;
+      }
+      return false;
+    },
   },
 };
