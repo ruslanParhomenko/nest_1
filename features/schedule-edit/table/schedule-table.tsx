@@ -14,6 +14,7 @@ interface ScheduleTableProps {
   update: UseFieldArrayReturn<ScheduleType, "rowShifts", "id">["update"];
   selectedDay: number;
   setSelectedDay: (day: number) => void;
+  addNewRow?: () => void;
 }
 export default function ScheduleTable({
   selectedDay,
@@ -23,12 +24,21 @@ export default function ScheduleTable({
   remove,
   move,
   update,
+  addNewRow,
 }: ScheduleTableProps) {
+  if (selectedEmployees.length === 0) {
+    return (
+      <div className="mt-4 flex items-center justify-center text-red-600">
+        <p>Нет сотрудников</p>
+      </div>
+    );
+  }
   return (
     <Table className="mt-4 table-fixed">
       <ScheduleTableHeader
         selectedDay={selectedDay}
         setSelectedDay={setSelectedDay}
+        addNewRow={addNewRow}
       />
 
       <ScheduleBodyEdit

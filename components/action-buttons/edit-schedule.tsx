@@ -13,18 +13,18 @@ export default function EditScheduleButton({
   const router = useRouter();
   const searchParams = useSearchParams();
 
- const handleClick = () => {
-  const query = searchParams.toString();
+  const handleClick = () => {
+    const query = searchParams.toString();
 
-  router.push(`/schedule/edit${query ? `?${query}` : ""}`);
-};
+    router.push(`/schedule/edit${query ? `?${query}` : ""}`);
+  };
   const logout = () => {
     router.back();
     setIsEdit(false);
   };
   return (
     <AppTooltip
-      content="Добавить"
+      content="Добавить расписание"
       render={
         <button
           type="button"

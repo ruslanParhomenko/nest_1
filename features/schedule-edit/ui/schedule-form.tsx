@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { useFieldArray } from "react-hook-form";
-
 import ScheduleTable from "../table/schedule-table";
 import FormWrapper from "@/components/wrapper/form-wrapper";
 import type { GetScheduleData } from "../model/type";
@@ -20,7 +19,6 @@ export function ScheduleFormEdit({
   schedule: GetScheduleData | null;
 }) {
   const { daysCount } = useMonthDays();
-
   const todayDay = new Date().getDate();
 
   const [selectedDay, setSelectedDay] = useState<number>(todayDay);
@@ -31,10 +29,6 @@ export function ScheduleFormEdit({
     control: form.control,
     name: "rowShifts",
   });
-
-  const errors = form.formState.errors;
-
-  console.log(errors);
 
   function addRow() {
     replace([
@@ -61,10 +55,9 @@ export function ScheduleFormEdit({
     }
 
     replace(createEmptyRowShifts(employees, daysCount));
-  }, [schedule]);
+  }, [schedule, employees]);
   return (
     <FormWrapper form={form} onSubmit={onSubmit}>
-      <EditMenu addNewRow={addRow} />
       <ScheduleTable
         selectedDay={selectedDay}
         setSelectedDay={setSelectedDay}
@@ -73,6 +66,7 @@ export function ScheduleFormEdit({
         remove={remove}
         move={move}
         update={update}
+        addNewRow={addRow}
       />
     </FormWrapper>
   );

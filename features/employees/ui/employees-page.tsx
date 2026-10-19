@@ -39,8 +39,8 @@ export function EmployeesPage({
 
   if (employees.length === 0)
     return (
-      <div className="flex flex-col items-center justify-center h-dvh text-red-600 gap-4">
-        not found
+      <div className="mt-4 flex items-center justify-center text-red-600">
+        <p>Нет сотрудников</p>
       </div>
     );
 

@@ -15,13 +15,14 @@ export default async function HomeLayout({
         <Suspense fallback={<div>Loading...</div>}>
           <HeaderBar />
         </Suspense>
-  
       </header>
       <main className="flex flex-1 flex-col px-2 overflow-y-auto">
         {children}
       </main>
       <footer>
-        <FooterBar />
+        <Suspense fallback={<div>Loading...</div>}>
+          <FooterBar />
+        </Suspense>
       </footer>
     </EditProviderWithSuspense>
   );

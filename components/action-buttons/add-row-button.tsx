@@ -9,7 +9,7 @@ export default function AddRowButton({ addNewRow }: { addNewRow: () => void }) {
         <button
           type="button"
           onClick={() => addNewRow()}
-          className="flex cursor-pointer items-center justify-center hover:text-black border bg-border rounded-md px-2 py-1.5"
+          className="flex cursor-pointer items-center justify-center hover:text-black rounded-md px-2 py-1.5"
         />
       }
     >
