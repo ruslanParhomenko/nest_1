@@ -14,7 +14,7 @@ export function ScheduleFormEdit({
   employees,
   schedule,
 }: {
-  employees: GetEmployeesData[];
+  employees: GetEmployeesData[] | null;
   schedule: GetScheduleData | null;
 }) {
   const { daysCount } = useMonthDays();
@@ -52,6 +52,8 @@ export function ScheduleFormEdit({
       form.reset(schedule);
       return;
     }
+
+    if (!employees) return;
 
     replace(createEmptyRowShifts(employees, daysCount));
   }, [schedule, employees]);

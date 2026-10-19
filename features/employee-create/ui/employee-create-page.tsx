@@ -12,7 +12,7 @@ export function EmployeeCreatePage({
   employees,
 }: {
   id?: string;
-  employees?: GetEmployeesData[];
+  employees: GetEmployeesData[] | null;
 }) {
   const employee = id ? employees?.find((e) => e.id === id) : undefined;
 

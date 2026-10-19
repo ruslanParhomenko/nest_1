@@ -8,7 +8,7 @@ import type { GetEmployeesData } from "@/features/employee-create/model/schema";
 
 interface ScheduleTableProps {
   fields: FieldArrayWithId<ScheduleType, "rowShifts", "id">[];
-  selectedEmployees: GetEmployeesData[];
+  selectedEmployees: GetEmployeesData[] | null;
   remove: UseFieldArrayReturn<ScheduleType, "rowShifts", "id">["remove"];
   move: UseFieldArrayReturn<ScheduleType, "rowShifts", "id">["move"];
   update: UseFieldArrayReturn<ScheduleType, "rowShifts", "id">["update"];
@@ -26,7 +26,7 @@ export default function ScheduleTable({
   update,
   addNewRow,
 }: ScheduleTableProps) {
-  if (selectedEmployees.length === 0) {
+  if (selectedEmployees?.length === 0) {
     return (
       <div className="mt-4 flex items-center justify-center text-red-600">
         <p>Нет сотрудников</p>

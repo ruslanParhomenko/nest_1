@@ -37,7 +37,7 @@ export function EmployeesPage({
     router.push(`/employee/view/${id}`);
   };
 
-  if (employees.length === 0)
+  if (employees?.length === 0)
     return (
       <div className="mt-4 flex items-center justify-center text-red-600">
         <p>Нет сотрудников</p>

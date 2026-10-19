@@ -26,9 +26,9 @@ async function Employees({
     );
 
   const employees = await getEmployees();
-  const filteredEmployees = employees.filter((e) =>
+  const filteredEmployees = employees?.filter((e) =>
     ROLE_BY_TAB[tab as keyof typeof ROLE_BY_TAB].includes(e.role.toLowerCase()),
-  );
+  ) || [];
 
   return <EmployeesPage employees={filteredEmployees} />;
 }

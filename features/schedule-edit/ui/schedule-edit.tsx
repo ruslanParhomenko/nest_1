@@ -7,7 +7,7 @@ export default function ScheduleEdit({
   employees,
 }: {
   schedule: GetScheduleData | null;
-  employees: GetEmployeesData[];
+  employees: GetEmployeesData[] | null;
 }) {
   return <ScheduleFormEdit  schedule={schedule} employees={employees} />;
 }

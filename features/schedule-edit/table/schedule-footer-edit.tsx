@@ -29,10 +29,7 @@ function getShiftIcon(shift: string) {
 
 export default function ScheduleFooterEdit() {
   const form = useFormContext<ScheduleType>();
-
   const searchParams = useSearchParams();
-
-
   const role = searchParams.get("tab")
 
   const rowShifts = useWatch({

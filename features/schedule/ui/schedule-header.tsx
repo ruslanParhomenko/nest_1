@@ -18,8 +18,6 @@ export default function ScheduleTableHeader({
   const { monthDays, month } = useMonthDays();
 
   const { isEditing } = useEdit();
-
-  console.log("isEditing", isEditing);
   return (
     <TableHeader>
       <TableRow className="border-0!">

@@ -19,7 +19,7 @@ async function EmployeeCreatePageResolver({
 
   if (!id) return null;
 
-  const employee = (await getEmployees()).find((e) => e.id === id) || null;
+  const employee = (await getEmployees())?.find((e) => e.id === id) || null;
 
   if (!employee) return null;
 

@@ -23,7 +23,7 @@ export default function ScheduleBodyEdit({
   setSelectedDay,
 }: {
   fields: FieldArrayWithId<ScheduleType, "rowShifts", "id">[];
-  selectedEmployees: GetEmployeesData[];
+  selectedEmployees: GetEmployeesData[] | null;
   remove: UseFieldArrayReturn<ScheduleType, "rowShifts", "id">["remove"];
   move: UseFieldArrayReturn<ScheduleType, "rowShifts", "id">["move"];
   update: UseFieldArrayReturn<ScheduleType, "rowShifts", "id">["update"];
@@ -45,7 +45,7 @@ export default function ScheduleBodyEdit({
 
   const handleEmployeeChange = useCallback(
     (name: string | null, rowIndex: number) => {
-      const employee = selectedEmployees.find(
+      const employee = selectedEmployees?.find(
         (e) => e.fullName.trim() === name?.trim(),
       );
       if (!employee) return;

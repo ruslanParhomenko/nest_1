@@ -1,6 +1,6 @@
 import { SlowLoading } from "@/components/page/slow-loading";
+import { ScheduleView } from "@/features/schedule";
 import { getSchedule } from "@/features/schedule/actions/get-schedule";
-import ScheduleView from "@/features/schedule/ui/schedule-view";
 import { Suspense } from "react";
 
 async function Schedule({
@@ -14,7 +14,7 @@ async function Schedule({
     month: Number(month),
     role: tab,
   });
-  return <ScheduleView schedule={schedule} />;
+  return <ScheduleView schedule={schedule || null} tab={tab} />;
 }
 
 export default function Page({

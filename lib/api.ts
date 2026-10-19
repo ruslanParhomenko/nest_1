@@ -5,7 +5,7 @@ if (!API_URL) {
   throw new Error("BACKEND_URL is not configured");
 }
 
-export async function fetcher<T>(path: string, init?: RequestInit): Promise<T> {
+export async function fetcher<T>(path: string, init?: RequestInit): Promise<T | null> {
   const url = `${API_URL}/${path}`;
   const res = await fetch(url, {
     ...init,
@@ -20,5 +20,11 @@ export async function fetcher<T>(path: string, init?: RequestInit): Promise<T> {
     throw new Error(res.statusText);
   }
 
-  return res.json() as Promise<T>;
+  const text = await res.text();
+
+  if (!text) {
+    return null;
+  }
+
+  return JSON.parse(text) as Promise<T>;
 }

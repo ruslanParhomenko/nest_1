@@ -28,7 +28,7 @@ type RowProps = {
   remove: UseFieldArrayReturn<ScheduleType, "rowShifts", "id">["remove"];
   move: UseFieldArrayReturn<ScheduleType, "rowShifts", "id">["move"];
   selectedRow: number | null;
-  selectedEmployees: GetEmployeesData[];
+  selectedEmployees: GetEmployeesData[] | null;
 
   onCellFocus: (rowIndex: number, dayIndex: number) => void;
   onEmployeeChange: (name: string | null, rowIndex: number) => void;
@@ -122,7 +122,7 @@ function ScheduleRowEdit({
       <TableCell className="bg-background sticky left-0 md:bg-transparent">
         <SelectField
           fieldName={`rowShifts.${rowIndex}.employee`}
-          data={selectedEmployees.map((e) => e.fullName)}
+          data={selectedEmployees?.map((e) => e.fullName) || []}
           className={cn(
             "hover-cell truncate text-xs h-5!",
             selectedRow === rowIndex && "text-red-600! font-bold",

@@ -21,5 +21,5 @@ export async function getSchedule(query: {
     `schedule?year=${year}&month=${month}&tab=${role}`,
   );
 
-  return schedule;
+  return schedule || null;
 }

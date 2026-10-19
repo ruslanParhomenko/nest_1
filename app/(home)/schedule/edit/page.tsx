@@ -1,6 +1,6 @@
 import { getEmployees } from "@/features/employee-create/actions/get-employees";
 import { getSchedule } from "@/features/schedule/actions/get-schedule";
-import ScheduleEdit from "@/features/schedule/ui/schedule-edit";
+import ScheduleEdit from "@/features/schedule-edit/ui/schedule-edit";
 import { Suspense } from "react";
 
 const ROLE_BY_TAB = {
@@ -28,9 +28,9 @@ async function ScheduleEditPage({
       })
     : null;
 
-  const employeeByTab = employees.filter((e) =>
+  const employeeByTab = employees?.filter((e) =>
     ROLE_BY_TAB[tab as keyof typeof ROLE_BY_TAB].includes(e.role.toLowerCase()),
-  );
+  ) || [];
   return <ScheduleEdit employees={employeeByTab} schedule={schedule} />;
 }
 
