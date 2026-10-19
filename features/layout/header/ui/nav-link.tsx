@@ -26,7 +26,7 @@ export default function NavLink() {
   ] as const;
 
   if (!patchName) {
-    return null;
+    return <div className="flex items-center justify-center gap-6 py-2"></div>;
   }
 
   return (

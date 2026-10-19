@@ -23,7 +23,7 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/",
     signOut: "/",
-    error: "/",
+    error: "/no-access",
   },
 
   callbacks: {
@@ -35,7 +35,6 @@ export const authOptions: NextAuthOptions = {
 
       return token;
     },
-
 
     async signIn({ account, profile }) {
       if (account && profile) {

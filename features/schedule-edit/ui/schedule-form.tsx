@@ -8,7 +8,6 @@ import type { GetScheduleData } from "../model/type";
 import { useMonthDays } from "@/hooks/use-month-days";
 import { createEmptyRowShifts } from "../lib/utils";
 import { useScheduleForm } from "../hooks/use-schedule-form";
-import { EditMenu } from "@/features/edit-menu/ui/edit-menu";
 import { GetEmployeesData } from "@/features/employee-create/model/schema";
 
 export function ScheduleFormEdit({

@@ -18,7 +18,12 @@ async function Employees({
   await connection();
   const { tab } = await searchParams;
 
-  if (tab === "null" || !tab) return null;
+  if (tab === "null" || !tab)
+    return (
+      <div className="flex items-center justify-center text-blue-600 mt-12">
+        выбрать категорию
+      </div>
+    );
 
   const employees = await getEmployees();
   const filteredEmployees = employees.filter((e) =>

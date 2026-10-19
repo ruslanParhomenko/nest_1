@@ -3,14 +3,23 @@
 import { SCHEDULE_ACTION_TAG } from "@/constants/action-tag";
 import { fetcher } from "@/lib/api";
 import { cacheLife, cacheTag } from "next/cache";
+import { GetScheduleData } from "../../schedule-edit/model/type";
 
-const tag = SCHEDULE_ACTION_TAG;
-
-export async function getSchedule()  {
-  "use cache";
+export async function getSchedule(query: {
+  year: number;
+  month: number;
+  role: string;
+}) {
+  "use cache: remote";
 
   cacheLife("max");
-  cacheTag(tag);
+  cacheTag(SCHEDULE_ACTION_TAG);
 
-  return fetcher(tag);
+  const { year, month, role } = query;
+
+  const schedule = await fetcher<GetScheduleData>(
+    `schedule?year=${year}&month=${month}&tab=${role}`,
+  );
+
+  return schedule;
 }

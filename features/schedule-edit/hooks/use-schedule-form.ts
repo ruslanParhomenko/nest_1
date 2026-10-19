@@ -8,6 +8,7 @@ import { EMPLOYEE_ROLES_BY_DEPARTMENT } from "../model/constants";
 import { defaultSchedule, scheduleSchema, ScheduleType } from "../model/schema";
 import { useEdit } from "@/provider/edit-provider";
 import { useSearchParams } from "next/navigation";
+import { createSchedule } from "../actions/create-schedule";
 
 export function useScheduleForm() {
   const { month, year } = useMonthDays();
@@ -15,7 +16,6 @@ export function useScheduleForm() {
   const searchParams = useSearchParams();
   const tab = searchParams.get("tab");
 
-  
   const { setIsEditing: setIsEdit } = useEdit();
 
   const form = useForm<ScheduleType>({
@@ -43,18 +43,21 @@ export function useScheduleForm() {
         salary: totalPay.toFixed(0).toString(),
       };
     });
-    const formatData = {
+
+    const res = await createSchedule({
       year,
       month,
       role: tab as keyof typeof EMPLOYEE_ROLES_BY_DEPARTMENT,
       rowShifts: rowShiftsWithHours,
-    };
+    });
 
-
-    // await createSchedule(formatData);
+    if (!res.ok) {
+      toast.error(res.error);
+      return;
+    }
     toast.success("График успешно создан!");
 
-    setIsEdit(false);
+    // setIsEdit(false);
   };
 
   return {
