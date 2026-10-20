@@ -9,9 +9,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { useEdit } from "@/provider/edit-provider";
 import { createEmployee } from "../actions/create-employee";
+import { useRouter } from "next/navigation";
 
 export function useEmployeeForm({ id }: { id?: string }) {
   const { setIsEditing } = useEdit();
+
+  const router = useRouter();
 
   const form = useForm<EmployeeForm>({
     resolver: zodResolver(employeesSchema),
@@ -38,6 +41,8 @@ export function useEmployeeForm({ id }: { id?: string }) {
       setIsEditing(false);
 
       form.reset();
+
+      router.back();
     } catch (error) {
       toast.error("An error occurred");
     }

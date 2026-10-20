@@ -6,33 +6,31 @@ import ScheduleTableFooter from "./schedule-footer";
 import { getShiftCounts } from "@/features/schedule-edit/lib/utils";
 import ScheduleBody from "./schedule-body";
 
-export  function ScheduleView({
+export function ScheduleView({
   schedule,
-  tab
+  tab,
 }: {
   schedule: GetScheduleData | null;
-  tab: string
+  tab: string;
 }) {
-  
-    const todayDay = new Date().getDate();
-    const shiftCounts = getShiftCounts(schedule?.rowShifts ?? []);
-    
-    if (!schedule) {
-      return (
-        <div className="mt-4 flex items-center justify-center text-red-600">
-          <p>Нет расписания</p>
-        </div>
-      );
-    }
-  
+  const todayDay = new Date().getDate();
+  const shiftCounts = getShiftCounts(schedule?.rowShifts ?? []);
+
+  if (!schedule) {
+    return (
+      <div className="mt-4 flex items-center justify-center text-red-600">
+        <p>Нет расписания</p>
+      </div>
+    );
+  }
+
   return (
     <div className="flex h-dvh items-center justify-center">
       <Table>
-
-      <ScheduleTableHeader selectedDay={todayDay} setSelectedDay={()=>{}}/>
-      <ScheduleBody schedule={schedule} selectedDay={todayDay}/>
-      <ScheduleTableFooter shiftCounts={shiftCounts} role={tab}/>
+        <ScheduleTableHeader selectedDay={todayDay} setSelectedDay={() => {}} />
+        <ScheduleBody schedule={schedule} selectedDay={todayDay} />
+        <ScheduleTableFooter shiftCounts={shiftCounts} role={tab} />
       </Table>
-      </div>
+    </div>
   );
 }

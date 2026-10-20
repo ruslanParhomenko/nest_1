@@ -67,7 +67,10 @@ export function EmployeesPage({
         <TableBody>
           {[
             ...employees
-              .filter((e) => e.role === "BARMEN")
+              .filter(
+                (e) =>
+                  e.role === "BARMEN" || e.role === "COOK" || e.role === "DISH",
+              )
               .sort((a, b) => a.fullName.localeCompare(b.fullName)),
             ...employees
               .filter((e) => e.role === "WAITERS")

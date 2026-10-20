@@ -33,8 +33,6 @@ export function EmployeeCreatePage({
       return;
     }
     setIsEditing(true);
-
-    console.log("isEditing", isEditing);
   }, []);
 
   return (

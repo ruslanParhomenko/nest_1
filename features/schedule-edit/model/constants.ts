@@ -1,12 +1,6 @@
-//create schedule
-export const ROLE_URL = {
-  bar: "restaurant",
-  cucina: "cucina",
-  dish: "dish",
-};
 export const SHIFTS = {
   bar: ["8", "12", "18", "20"],
-  cucina: ["7", "8", "19"],
+  cook: ["7", "8", "19"],
   dish: ["7", "18", "19", "24"],
 };
 
@@ -29,8 +23,7 @@ export const COLOR_SHIFT = {
   3: "text-yellow-600",
   4: "text-blue-600",
 };
-export const SHIFT_COLOR_MAP = ["v", "s", "x", "u", "", "/"];
-export const WAITER_EMPLOYEES = ["waiters"];
+
 export const SHIFT_OPTIONS = [
   "7",
   "8",
@@ -545,10 +538,9 @@ export const SHIFT_HOURS_MAP_NIGHT: Record<string, number> = {
 
 export const EMPLOYEE_ROLES_BY_DEPARTMENT = {
   bar: ["barmen", "waiters", "mngr"],
-  cucina: ["cook"],
+  cook: ["cook"],
   dish: ["dish"],
 } as const;
-export const ROLE_EMPLOYEES = ["bar", "cucina", "dish"];
 
 export const color = {
   "7": "text-blue-600",
@@ -560,7 +552,7 @@ export const color = {
   "20": "",
   v: "text-blue-600 bg-blue-600 border-0",
   s: "bg-fuchsia-600 text-fuchsia-600 border-0",
-  x: "text-rd bg-rd border-0",
+  x: "text-red-600 bg-red-600 border-0",
   u: "text-green-600 bg-green-600 border-0",
   "/": "text-transparent bg-gray-600 border-0",
 } as const;

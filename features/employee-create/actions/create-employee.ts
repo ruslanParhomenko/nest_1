@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath, revalidateTag } from "next/cache";
+import { updateTag } from "next/cache";
 import { EMPLOYEE_ACTION_TAG } from "@/constants/action-tag";
 import { employeesSchema, type EmployeeForm } from "../model/schema";
 import { fetcher } from "@/lib/api";
@@ -28,8 +28,7 @@ export async function createEmployee(values: EmployeeForm) {
       body: JSON.stringify(payload),
     });
 
-    revalidateTag(EMPLOYEE_ACTION_TAG, "max");
-    revalidatePath("/employee");
+    updateTag(EMPLOYEE_ACTION_TAG);
 
     return { ok: true as const, data: created };
   } catch (e) {

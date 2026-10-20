@@ -7,12 +7,13 @@ import { calculateSalaryByHours, calculateShiftTotals } from "../lib/utils";
 import { EMPLOYEE_ROLES_BY_DEPARTMENT } from "../model/constants";
 import { defaultSchedule, scheduleSchema, ScheduleType } from "../model/schema";
 import { useEdit } from "@/provider/edit-provider";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { createSchedule } from "../actions/create-schedule";
 
 export function useScheduleForm() {
   const { month, year } = useMonthDays();
 
+  const router = useRouter();
   const searchParams = useSearchParams();
   const tab = searchParams.get("tab");
 
@@ -57,7 +58,11 @@ export function useScheduleForm() {
     }
     toast.success("График успешно создан!");
 
-    // setIsEdit(false);
+    setIsEdit(false);
+
+    form.reset();
+
+    router.back();
   };
 
   return {

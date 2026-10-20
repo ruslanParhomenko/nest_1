@@ -2,7 +2,7 @@
 
 import { fetcher } from "@/lib/api";
 import { scheduleSchema, ScheduleType } from "../model/schema";
-import { revalidatePath, revalidateTag } from "next/cache";
+import { updateTag } from "next/cache";
 import { SCHEDULE_ACTION_TAG } from "@/constants/action-tag";
 
 export async function createSchedule(data: {
@@ -32,10 +32,9 @@ export async function createSchedule(data: {
       },
     );
 
-    revalidateTag(SCHEDULE_ACTION_TAG, "max");
-    revalidatePath("/schedules");
+    updateTag(SCHEDULE_ACTION_TAG);
 
-    return { ok: true as const, ...result };
+    return { ok: true as const, id: result?.scheduleId };
   } catch (e) {
     return {
       ok: false as const,

@@ -6,13 +6,12 @@ import ScheduleRow from "./schedule-row";
 import { GetScheduleData } from "@/features/schedule-edit/model/type";
 
 export default function ScheduleBody({
-    schedule,
-    selectedDay
+  schedule,
+  selectedDay,
 }: {
-    schedule: GetScheduleData
-    selectedDay: number;
+  schedule: GetScheduleData;
+  selectedDay: number;
 }) {
-    
   const { monthDays } = useMonthDays();
 
   return (
@@ -23,7 +22,7 @@ export default function ScheduleBody({
             key={row.id}
             rowIndex={rowIndex}
             fieldsLength={schedule.rowShifts.length}
-            row={row}        
+            row={row}
           />
         );
       })}

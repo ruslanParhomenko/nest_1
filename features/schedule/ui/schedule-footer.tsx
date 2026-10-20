@@ -31,21 +31,19 @@ export default function ScheduleTableFooter({
   shiftCounts: ShiftCounts | null;
   role: string;
 }) {
-
-
   return (
-    <TableFooter data-html2canvas-ignore="true" className="bg-transparent">
+    <TableFooter
+      data-html2canvas-ignore="true"
+      className="bg-transparent border-0"
+    >
       {SHIFT_OPTIONS.filter((item) =>
         SHIFTS[role as keyof typeof SHIFTS]?.includes(item),
-    ).map((item, i) => { 
-      const Icon = getShiftIcon(String(item));
-       
-      return(
-         <TableRow key={item} className="border-0">
-            <TableCell
-              colSpan={5}
-              className=
-                "px-6 text-end text-xs py-0.5">
+      ).map((item, i) => {
+        const Icon = getShiftIcon(String(item));
+
+        return (
+          <TableRow key={item} className="border-0">
+            <TableCell colSpan={5} className="pr-10 text-end text-xs py-0.5">
               <span className="inline-flex items-center justify-center gap-2 text-muted-foreground">
                 <Icon className="size-3 shrink-0" aria-hidden="true" />
 
@@ -80,7 +78,8 @@ export default function ScheduleTableFooter({
               </TableCell>
             ))}
           </TableRow>
-      )})}
+        );
+      })}
     </TableFooter>
   );
 }

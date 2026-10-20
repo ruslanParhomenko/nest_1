@@ -2,24 +2,20 @@
 
 import { TableCell, TableRow } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
-import  type { ScheduleType } from "@/features/schedule-edit/model/schema";
-import { calculateSalaryByHours, calculateShiftTotals } from "@/features/schedule-edit/lib/utils";
+import type { ScheduleType } from "@/features/schedule-edit/model/schema";
+import {
+  calculateSalaryByHours,
+  calculateShiftTotals,
+} from "@/features/schedule-edit/lib/utils";
 
 type RowProps = {
-    rowIndex: number;
- fieldsLength: number;
-  row:  ScheduleType["rowShifts"][number]
+  rowIndex: number;
+  fieldsLength: number;
+  row: ScheduleType["rowShifts"][number];
 };
 
-export default function ScheduleRow({
-  rowIndex,
-  fieldsLength,
-  row,
-}: RowProps) {
-
-  const { totalDay, totalNight, total } = calculateShiftTotals(
-    row.shifts,
-  );
+export default function ScheduleRow({ rowIndex, fieldsLength, row }: RowProps) {
+  const { totalDay, totalNight, total } = calculateShiftTotals(row.shifts);
 
   const totalPay = calculateSalaryByHours({
     ...row,
@@ -28,16 +24,10 @@ export default function ScheduleRow({
   });
 
   return (
-    <TableRow
-      className="group hover:text-red-600! [&>td]:py-0.5 [&>td]:text-xs border border-blue-600/30 border-x-0"
-    >
-          <TableCell
-            className="text-red-600 font-bold cursor-pointer border-r text-center"
-          >
-    
+    <TableRow className="group hover:text-red-600! [&>td]:py-0.5 [&>td]:text-xs border border-blue-600/30 border-x-0">
+      <TableCell className="text-red-600 font-bold cursor-pointer border-r text-center">
         {rowIndex + 1}
-        </TableCell>
-      
+      </TableCell>
 
       <TableCell className="text-blue-500 hover-cell">
         {fieldsLength > 22 ? (
@@ -56,22 +46,16 @@ export default function ScheduleRow({
         )}
       </TableCell>
 
-      <TableCell
-        className="text-center text-green-800"
-      >
-        {total || 0}
-      </TableCell>
+      <TableCell className="text-center text-green-800">{total || 0}</TableCell>
 
-      <TableCell className="text-muted-foreground text-center">
+      <TableCell className="text-muted-foreground text-center border-x border-x-blue-200">
         {row.role.charAt(0).toLocaleLowerCase()}-{Number(row.rate) / 1000} :{" "}
-        <span
-          className="font-bold px-1 text-blue-600"
-        >
+        <span className="font-bold px-1 text-blue-600">
           {totalPay && totalPay.toFixed()}
         </span>
       </TableCell>
       <TableCell className="bg-background sticky left-0 md:bg-transparent">
-{row.employee}      
+        {row.employee}
       </TableCell>
 
       {row.shifts.map((shiftValue, dayIndex) => {
@@ -82,14 +66,11 @@ export default function ScheduleRow({
               "border-x border-blue-600/30 hover-cell p-0 text-center text-xs",
             )}
           >
-          {shiftValue}
+            {shiftValue}
           </TableCell>
         );
       })}
-      <TableCell className="h-px p-0!">
-   
-      </TableCell>
+      <TableCell className="h-px p-0!"></TableCell>
     </TableRow>
   );
 }
-

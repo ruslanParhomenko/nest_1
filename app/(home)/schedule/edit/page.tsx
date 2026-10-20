@@ -9,41 +9,35 @@ const ROLE_BY_TAB = {
   dish: ["dish"],
 };
 async function ScheduleEditPage({
-  params,
   searchParams,
 }: {
-  params: Promise<{ id: string }>;
   searchParams: Promise<{ tab: string; year: string; month: string }>;
 }) {
-  const { id } = await params;
-
   const { tab, year, month } = await searchParams;
   const employees = await getEmployees();
+  const schedule = await getSchedule({
+    year: Number(year),
+    month: Number(month),
+    role: tab,
+  });
 
-  const schedule = id
-    ? await getSchedule({
-        year: Number(year),
-        month: Number(month),
-        role: tab,
-      })
-    : null;
-
-  const employeeByTab = employees?.filter((e) =>
-    ROLE_BY_TAB[tab as keyof typeof ROLE_BY_TAB].includes(e.role.toLowerCase()),
-  ) || [];
+  const employeeByTab =
+    employees?.filter((e) =>
+      ROLE_BY_TAB[tab as keyof typeof ROLE_BY_TAB].includes(
+        e.role.toLowerCase(),
+      ),
+    ) || [];
   return <ScheduleEdit employees={employeeByTab} schedule={schedule} />;
 }
 
 export default function Page({
-  params,
   searchParams,
 }: {
-  params: Promise<{ id: string }>;
   searchParams: Promise<{ tab: string; year: string; month: string }>;
 }) {
   return (
     <Suspense fallback={null}>
-      <ScheduleEditPage params={params} searchParams={searchParams} />
+      <ScheduleEditPage searchParams={searchParams} />
     </Suspense>
   );
 }
