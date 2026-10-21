@@ -47,16 +47,31 @@ export function ScheduleFormEdit({
     ]);
   }
 
+  console.log("schedule", schedule);
+
   useEffect(() => {
     if (schedule) {
-      form.reset(schedule);
+      const formattedSchedule = schedule.rowShifts.map((row) => ({
+        id: String(row.id),
+        dayHours: String(row.dayHours ?? ""),
+        nightHours: String(row.nightHours ?? ""),
+        totalHours: String(row.totalHours ?? ""),
+        employee: row.employee,
+        role: row.role,
+        rate: String(row.rate ?? "1"),
+        salary: String(row.salary ?? ""),
+        employeeId: String(row.id ?? ""),
+        shifts: row.shifts.map(String),
+      }));
+
+      form.reset({ rowShifts: formattedSchedule });
       return;
     }
 
     if (!employees) return;
 
     replace(createEmptyRowShifts(employees, daysCount));
-  }, [schedule, employees]);
+  }, [schedule, employees, daysCount, form, replace]);
   return (
     <FormWrapper form={form} onSubmit={onSubmit}>
       <ScheduleTable

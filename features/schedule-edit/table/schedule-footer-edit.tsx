@@ -30,7 +30,7 @@ function getShiftIcon(shift: string) {
 export default function ScheduleFooterEdit() {
   const form = useFormContext<ScheduleType>();
   const searchParams = useSearchParams();
-  const role = searchParams.get("tab")
+  const role = searchParams.get("tab");
 
   const rowShifts = useWatch({
     control: form.control,
@@ -52,7 +52,7 @@ export default function ScheduleFooterEdit() {
               colSpan={5}
               className={cn(
                 "px-6 text-end text-xs",
-                rowShifts.length < 20 ? "py-0.5" : "py-0",
+                rowShifts?.length < 20 ? "py-0.5" : "py-0",
               )}
             >
               <span className="inline-flex items-center justify-center gap-2 text-muted-foreground">

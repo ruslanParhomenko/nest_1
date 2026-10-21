@@ -10,7 +10,7 @@ export const rowShiftSchema = z.object({
   employee: z.string(),
   role: z.string(),
   rate: z.string(),
-  salary: z.string().optional(),
+  salary: z.string(),
   employeeId: z.string(),
   shifts: z.array(shiftsSchema),
 });

@@ -24,7 +24,13 @@ export function useScheduleForm() {
     defaultValues: defaultSchedule,
   });
 
+  const error = form.formState.errors;
+
+  const value = form.watch();
+  console.log("value form watch", value);
+  console.log("error", error);
   const onSubmit: SubmitHandler<ScheduleType> = async (data) => {
+    console.log("data submit", data);
     const rowShiftsWithHours = data.rowShifts.map((row) => {
       if (!row.shifts) return row;
       const { totalDay, totalNight, total } = calculateShiftTotals(row.shifts);
