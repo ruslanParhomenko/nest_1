@@ -16,6 +16,8 @@ export function ScheduleView({
   const todayDay = new Date().getDate();
   const shiftCounts = getShiftCounts(schedule?.rowShifts ?? []);
 
+  console.log("schedule", schedule);
+
   if (!schedule) {
     return (
       <div className="mt-4 flex items-center justify-center text-red-600">
