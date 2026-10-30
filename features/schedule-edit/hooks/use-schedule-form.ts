@@ -23,12 +23,6 @@ export function useScheduleForm() {
     resolver: zodResolver(scheduleSchema),
     defaultValues: defaultSchedule,
   });
-
-  const error = form.formState.errors;
-
-  const value = form.watch();
-  console.log("value form watch", value);
-  console.log("error", error);
   const onSubmit: SubmitHandler<ScheduleType> = async (data) => {
     console.log("data submit", data);
     const rowShiftsWithHours = data.rowShifts.map((row) => {

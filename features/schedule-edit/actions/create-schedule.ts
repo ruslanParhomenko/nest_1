@@ -1,6 +1,6 @@
 "use server";
 
-import { fetcher } from "@/lib/api";
+import { fetcher, getActor } from "@/lib/api";
 import { scheduleSchema, ScheduleType } from "../model/schema";
 import { updateTag } from "next/cache";
 import { SCHEDULE_ACTION_TAG } from "@/constants/action-tag";
@@ -19,8 +19,11 @@ export async function createSchedule(data: {
   }
 
   try {
+    const actor = await getActor();
+
     const result = await fetcher<{ scheduleId: string; saved: number }>(
       "schedule",
+      actor,
       {
         method: "POST",
         body: JSON.stringify({
@@ -33,7 +36,6 @@ export async function createSchedule(data: {
     );
 
     updateTag(SCHEDULE_ACTION_TAG);
-
     return { ok: true as const, id: result?.scheduleId };
   } catch (e) {
     return {

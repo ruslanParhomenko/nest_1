@@ -1,6 +1,7 @@
 import { SlowLoading } from "@/components/page/slow-loading";
 import { ScheduleView } from "@/features/schedule";
 import { getSchedule } from "@/features/schedule/actions/get-schedule";
+import { getActor } from "@/lib/api";
 import { Suspense } from "react";
 
 async function Schedule({
@@ -9,11 +10,12 @@ async function Schedule({
   searchParams: Promise<{ tab: string; year: string; month: string }>;
 }) {
   const { year, month, tab } = await searchParams;
-  const schedule = await getSchedule({
-    year: Number(year),
-    month: Number(month),
-    role: tab,
-  });
+
+  const actor = await getActor();
+  const schedule = await getSchedule(
+    { year: +year, month: +month, role: tab },
+    actor,
+  );
   if (!tab || !year || !month)
     return (
       <div className="text-red-600 flex items-center justify-center">

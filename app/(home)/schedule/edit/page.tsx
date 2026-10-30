@@ -2,6 +2,7 @@ import { getEmployees } from "@/features/employee-create/actions/get-employees";
 import { getSchedule } from "@/features/schedule/actions/get-schedule";
 import ScheduleEdit from "@/features/schedule-edit/ui/schedule-edit";
 import { Suspense } from "react";
+import { getActor } from "@/lib/api";
 
 const ROLE_BY_TAB = {
   bar: ["barmen", "waiters"],
@@ -14,12 +15,16 @@ async function ScheduleEditPage({
   searchParams: Promise<{ tab: string; year: string; month: string }>;
 }) {
   const { tab, year, month } = await searchParams;
-  const employees = await getEmployees();
-  const schedule = await getSchedule({
-    year: Number(year),
-    month: Number(month),
-    role: tab,
-  });
+  const actor = await getActor();
+  const employees = await getEmployees(actor);
+  const schedule = await getSchedule(
+    {
+      year: Number(year),
+      month: Number(month),
+      role: tab,
+    },
+    actor,
+  );
 
   const employeeByTab =
     employees?.filter((e) =>

@@ -3,7 +3,7 @@
 import { updateTag } from "next/cache";
 import { EMPLOYEE_ACTION_TAG } from "@/constants/action-tag";
 import { employeesSchema, type EmployeeForm } from "../model/schema";
-import { fetcher } from "@/lib/api";
+import { fetcher, getActor } from "@/lib/api";
 
 export async function createEmployee(values: EmployeeForm) {
   const parsed = employeesSchema.safeParse(values);
@@ -11,6 +11,8 @@ export async function createEmployee(values: EmployeeForm) {
   if (!parsed.success) {
     return { ok: false as const, error: "Validation failed" };
   }
+
+  const actor = await getActor();
 
   const { vacation, ...rest } = parsed.data;
 
@@ -23,7 +25,7 @@ export async function createEmployee(values: EmployeeForm) {
   };
 
   try {
-    const created = await fetcher<{ id: string }>("employee", {
+    const created = await fetcher<{ id: string }>("employee", actor, {
       method: "POST",
       body: JSON.stringify(payload),
     });

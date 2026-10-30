@@ -1,5 +1,6 @@
 import { getEmployees } from "@/features/employee-create/actions/get-employees";
 import { EmployeeViewPage } from "@/features/employee-view";
+import { getActor } from "@/lib/api";
 import { Suspense } from "react";
 
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
@@ -19,7 +20,10 @@ async function EmployeeCreatePageResolver({
 
   if (!id) return null;
 
-  const employee = (await getEmployees())?.find((e) => e.id === id) || null;
+  const actor = await getActor();
+
+  const employee =
+    (await getEmployees(actor))?.find((e) => e.id === id) || null;
 
   if (!employee) return null;
 

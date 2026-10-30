@@ -1,15 +1,12 @@
-"use server";
-
 import { SCHEDULE_ACTION_TAG } from "@/constants/action-tag";
-import { fetcher } from "@/lib/api";
+import { fetcher, type Actor } from "@/lib/api";
 import { cacheLife, cacheTag } from "next/cache";
 import { GetScheduleData } from "../../schedule-edit/model/type";
 
-export async function getSchedule(query: {
-  year: number;
-  month: number;
-  role: string;
-}) {
+export async function getSchedule(
+  query: { year: number; month: number; role: string },
+  actor: Actor,
+) {
   "use cache: remote";
 
   cacheLife("max");
@@ -19,7 +16,8 @@ export async function getSchedule(query: {
 
   const schedule = await fetcher<GetScheduleData>(
     `schedule?year=${year}&month=${month}&tab=${role}`,
+    actor,
   );
 
-  return schedule || null;
+  return schedule ?? null;
 }

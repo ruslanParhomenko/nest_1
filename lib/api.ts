@@ -8,16 +8,23 @@ if (!API_URL) {
   throw new Error("BACKEND_URL is not configured");
 }
 
+export type Actor = { id: string; role?: string };
+
+export async function getActor(): Promise<Actor> {
+  const session = await getServerSession(authOptions);
+  if (!session) throw new Error("Unauthorized");
+  return { id: session.user.id, role: session.user.role };
+}
+
 export async function fetcher<T>(
   path: string,
+  actor: Actor,
   init?: RequestInit,
 ): Promise<T | null> {
-  const session = await getServerSession(authOptions);
+  if (!actor?.id) throw new Error("fetcher: actor.id is missing");
 
-  if (!session) throw new Error("Unauthorized");
-
-  const jwt = await new SignJWT({ role: session.user.role })
-    .setSubject(session.user.id)
+  const jwt = await new SignJWT({ role: actor?.role })
+    .setSubject(actor?.id)
     .setProtectedHeader({ alg: "HS256" })
     .setExpirationTime("1m")
     .sign(new TextEncoder().encode(process.env.BACKEND_JWT_SECRET));

@@ -1,5 +1,6 @@
 import { EmployeeCreatePage } from "@/features/employee-create";
 import { getEmployees } from "@/features/employee-create/actions/get-employees";
+import { getActor } from "@/lib/api";
 import { Suspense } from "react";
 
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
@@ -16,6 +17,9 @@ async function EmployeeCreatePageResolver({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const employees = await getEmployees();
+  if (!id) return null;
+
+  const actor = await getActor();
+  const employees = await getEmployees(actor);
   return <EmployeeCreatePage id={id} employees={employees} />;
 }
